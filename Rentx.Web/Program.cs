@@ -18,10 +18,10 @@ namespace Rentx.Web
 
                 var context = services.GetRequiredService<ApplicationDbContext>();
                 ProductSeeder.SeedDatabase(context);
+                AdminSeeder.SeedDatabase(context, services).Wait();
             }
 
             host.Run();
-            CreateWebHostBuilder(args).Build().Run();
         }
 
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>

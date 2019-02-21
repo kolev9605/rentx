@@ -3,89 +3,58 @@
     ViewData["Title"] = "Index";
 }
 
-<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
 <div class="text-center">
-    <h1 class="display-4">eban catalog</h1>
+    <h1 class="display-4">Catalog</h1>
 </div>
-
-<div class="row product-list">
-    <div class="col-md-4">
-        <section class="panel">
-            <div class="pro-img-box">
-                <img src="http://thevectorlab.net/flatlab/img/product-list/pro2.jpg" alt="">
-                <a href="#" class="adtocart">
-                    <i class="fa fa-shopping-cart"></i>
-                </a>
+<div class="row">
+    @for (int i = 0; i < 10; i++)
+    {
+        <div class="col-xs-12 col-sm-6 col-md-4">
+            <div class="image-flip" ontouchstart="this.classList.toggle('hover');">
+                <div class="mainflip">
+                    <div class="frontside">
+                        <div class="card">
+                            <div class="card-body text-center">
+                                <p><img class=" img-fluid" src="https://sunlimetech.com/portfolio/boot4menu/assets/imgs/team/img_06.jpg" alt="card image"></p>
+                                <h4 class="card-title">Sunlimetech</h4>
+                                <p class="card-text">This is basic card with image on top, title, description and button.</p>
+                                <a href="#" class="btn btn-primary btn-sm"><i class="fa fa-plus"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="backside">
+                        <div class="card">
+                            <div class="card-body text-center mt-4">
+                                <h4 class="card-title">Sunlimetech</h4>
+                                <p class="card-text">This is basic card with image on top, title, description and button.This is basic card with image on top, title, description and button.This is basic card with image on top, title, description and button.</p>
+                                <ul class="list-inline">
+                                    <li class="list-inline-item">
+                                        <a class="social-icon text-xs-center" target="_blank" href="#">
+                                            <i class="fa fa-facebook"></i>
+                                        </a>
+                                    </li>
+                                    <li class="list-inline-item">
+                                        <a class="social-icon text-xs-center" target="_blank" href="#">
+                                            <i class="fa fa-twitter"></i>
+                                        </a>
+                                    </li>
+                                    <li class="list-inline-item">
+                                        <a class="social-icon text-xs-center" target="_blank" href="#">
+                                            <i class="fa fa-skype"></i>
+                                        </a>
+                                    </li>
+                                    <li class="list-inline-item">
+                                        <a class="social-icon text-xs-center" target="_blank" href="#">
+                                            <i class="fa fa-google"></i>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
+        </div>
+    }
 
-            <div class="panel-body text-center">
-                <h4>
-                    <a href="#" class="pro-title">
-                        Leopard Shirt Dress
-                    </a>
-                </h4>
-                <p class="price">$300.00</p>
-            </div>
-        </section>
-    </div>
-
-    <div class="col-md-4">
-        <section class="panel">
-            <div class="pro-img-box">
-                <img src="http://thevectorlab.net/flatlab/img/product-list/pro2.jpg" alt="">
-                <a href="#" class="adtocart">
-                    <i class="fa fa-shopping-cart"></i>
-                </a>
-            </div>
-
-            <div class="panel-body text-center">
-                <h4>
-                    <a href="#" class="pro-title">
-                        Leopard Shirt Dress
-                    </a>
-                </h4>
-                <p class="price">$300.00</p>
-            </div>
-        </section>
-    </div>
-
-    <div class="col-md-4">
-        <section class="panel">
-            <div class="pro-img-box">
-                <img src="http://thevectorlab.net/flatlab/img/product-list/pro2.jpg" alt="">
-                <a href="#" class="adtocart">
-                    <i class="fa fa-shopping-cart"></i>
-                </a>
-            </div>
-
-            <div class="panel-body text-center">
-                <h4>
-                    <a href="#" class="pro-title">
-                        Leopard Shirt Dress
-                    </a>
-                </h4>
-                <p class="price">$300.00</p>
-            </div>
-        </section>
-    </div>
-
-    <div class="col-md-4">
-        <section class="panel">
-            <div class="pro-img-box">
-                <img src="http://thevectorlab.net/flatlab/img/product-list/pro2.jpg" alt="">
-                <a href="#" class="adtocart">
-                    <i class="fa fa-shopping-cart"></i>
-                </a>
-            </div>
-
-            <div class="panel-body text-center">
-                <h4>
-                    <a href="#" class="pro-title">
-                        Leopard Shirt Dress
-                    </a>
-                </h4>
-                <p class="price">$300.00</p>
-            </div>
-        </section>
-    </div>
 </div>
