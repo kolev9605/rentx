@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
+using Rentx.Web.Common;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
@@ -13,7 +14,7 @@ namespace Rentx.Web.Data.Seeders
             context.Database.EnsureCreated();
             var RoleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
             var UserManager = serviceProvider.GetRequiredService<UserManager<IdentityUser>>();
-            string[] roleNames = { "Administrator", "User" };
+            string[] roleNames = { RoleConstants.Administrator, RoleConstants.User };
             IdentityResult roleResult;
 
             foreach (var roleName in roleNames)
@@ -38,7 +39,7 @@ namespace Rentx.Web.Data.Seeders
                 await UserManager.CreateAsync(user, "admin@rentx.com");
             }
 
-            await UserManager.AddToRoleAsync(user, "Administrator");
+            await UserManager.AddToRoleAsync(user, RoleConstants.Administrator);
 
             context.SaveChanges();
         }

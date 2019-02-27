@@ -18,6 +18,7 @@
         (function () {
             var button = document.querySelector("#cookieConsent button[data-cookie-string]");
             button.addEventListener("click", function (event) {
+                console.log(button.dataset.cookieString)
                 document.cookie = button.dataset.cookieString;
             }, false);
         })();

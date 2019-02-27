@@ -4,7 +4,8 @@ using Rentx.Web.Common;
 
 namespace Rentx.Web.Controllers
 {
-    public class CatalogController : Controller
+    [Authorize(Roles = RoleConstants.Administrator)]
+    public class AdminController : Controller
     {
         public IActionResult Index()
         {
