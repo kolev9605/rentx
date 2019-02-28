@@ -1,7 +1,31 @@
-﻿
-@{
-    ViewData["Title"] = "Index";
+﻿@model IEnumerable<ProductViewModel>
+
+
+@if (Model.Any())
+{
+    <div class="text-center">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Id</th>
+                    <th scope="col">Price</th>
+                    <th scope="col">Title</th>
+                    <th scope="col">AvailableQuantity</th>
+                    <th scope="col">Delete</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var product in Model)
+                {
+                    <tr>
+                        <td>@product.Id</td>
+                        <td>@product.Price</td>
+                        <td>@product.Title</td>
+                        <td>@product.AvailableQuantity</td>
+                        <td><a asp-controller="Admin" asp-action="Delete" asp-route-productId="@product.Id">Delete</a></td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
 }
-
-<h1>Admin panel</h1>
-

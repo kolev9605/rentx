@@ -108,23 +108,23 @@ section {
     transform-style: preserve-3d;
 }
 
-    .frontside .card,
-    .backside .card {
-        min-height: 312px;
-    }
+.frontside .card,
+.backside .card {
+    min-height: 312px;
+}
 
-        .backside .card a {
-            font-size: 18px;
-            color: #007b5e !important;
-        }
+.backside .card a {
+    font-size: 38px;
+    color: #007b5e !important;
+}
 
-        .frontside .card .card-title,
-        .backside .card .card-title {
-            color: #007b5e !important;
-        }
+.frontside .card .card-title,
+.backside .card .card-title {
+    color: #007b5e !important;
+}
 
-        .frontside .card .card-body img {
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
-        }
+.frontside .card .card-body img {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+}

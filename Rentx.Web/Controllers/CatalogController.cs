@@ -1,6 +1,4 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-using Rentx.Web.Common;
+﻿using Microsoft.AspNetCore.Mvc;
 
 namespace Rentx.Web.Controllers
 {

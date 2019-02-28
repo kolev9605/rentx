@@ -13,6 +13,8 @@ using Microsoft.EntityFrameworkCore;
 using Rentx.Web.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Rentx.Web.Services.Interfaces;
+using Rentx.Web.Services;
 
 namespace Rentx.Web
 {
@@ -55,6 +57,8 @@ namespace Rentx.Web
                 .AddDefaultUI(UIFramework.Bootstrap4)
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();
+
+            services.AddTransient<IProductService, ProductService>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
