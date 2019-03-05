@@ -19,17 +19,31 @@ namespace Rentx.Web.Services
             this.dbContext = dbContext;
         }
 
-        public async Task<bool> DeleteProductByIdAsync(int productId)
+        public async Task AddAsync(ProductViewModel model)
+        {
+            var product = new Product
+            {
+                AvailableQuantity = model.AvailableQuantity,
+                Description = model.Description,
+                Price = model.Price,
+                Title = model.Title
+            };
+
+            await this.dbContext.Products.AddAsync(product);
+            var result = await this.dbContext.SaveChangesAsync();
+        }
+
+        public async Task<bool> DeleteByIdAsync(int productId)
         {
             var product = await this.GetProductById(productId);
             this.dbContext.Products.Remove(product);
             var result = await this.dbContext.SaveChangesAsync();
-            var success = result > 0;
 
+            var success = result > 0;
             return success;
         }
 
-        public async Task<IEnumerable<ProductViewModel>> GetAllProductsAsync()
+        public async Task<IEnumerable<ProductViewModel>> GetAllAsync()
         {
             var products = await this.dbContext.Products
                 .Select(p => new ProductViewModel
@@ -43,6 +57,37 @@ namespace Rentx.Web.Services
                 .ToListAsync();
 
             return products;
+        }
+
+        public async Task<ProductViewModel> GetByIdAsync(int productId)
+        {
+            var product = await this.GetProductById(productId);
+
+            var productModel = new ProductViewModel
+            {
+                Id = product.Id,
+                Title = product.Title,
+                Price = product.Price,
+                Description = product.Description,
+                AvailableQuantity = product.AvailableQuantity
+            };
+
+            return productModel;
+        }
+
+        public async Task<bool> UpdateAsync(ProductViewModel model)
+        {
+            var product = await this.GetProductById(model.Id);
+            product.Price = model.Price;
+            product.Title = model.Title;
+            product.AvailableQuantity = model.AvailableQuantity;
+            product.Description = model.Description;
+
+            this.dbContext.Products.Update(product);
+            var result = await this.dbContext.SaveChangesAsync();
+
+            var success = result > 0;
+            return success;
         }
 
         private async Task<Product> GetProductById(int productId)

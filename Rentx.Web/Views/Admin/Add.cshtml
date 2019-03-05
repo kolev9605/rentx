@@ -1,0 +1,35 @@
+﻿@model ProductViewModel
+
+<div class="text-center">
+    <form asp-controller="Admin" asp-action="Add" method="post">
+        <div class="row form-group">
+            <div class="col">
+                <input type="text" class="form-control" asp-for="Title" placeholder="Title">
+            </div>
+        </div>
+
+        <div class="row form-group">
+            <div class="col">
+                <input type="number" class="form-control" asp-for="Price" placeholder="Price">
+            </div>
+        </div>
+
+        <div class="row form-group">
+            <div class="col">
+                <input type="text" class="form-control" asp-for="Description" placeholder="Description">
+            </div>
+        </div>
+
+        <div class="row form-group">
+            <div class="col">
+                <input type="number" class="form-control" asp-for="AvailableQuantity" placeholder="AvailableQuantity">
+            </div>
+        </div>
+
+        <div class="row form-group">
+            <div class="col">
+                <button type="submit" class="btn btn-primary">Add</button>
+            </div>
+        </div>
+    </form>
+</div>

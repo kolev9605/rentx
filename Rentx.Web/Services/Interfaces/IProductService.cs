@@ -6,8 +6,14 @@ namespace Rentx.Web.Services.Interfaces
 {
     public interface IProductService
     {
-        Task<bool> DeleteProductByIdAsync(int productId);
+        Task AddAsync(ProductViewModel model);
+
+        Task<bool> DeleteByIdAsync(int productId);
         
-        Task<IEnumerable<ProductViewModel>> GetAllProductsAsync();
+        Task<IEnumerable<ProductViewModel>> GetAllAsync();
+
+        Task<ProductViewModel> GetByIdAsync(int productId);
+
+        Task<bool> UpdateAsync(ProductViewModel model);
     }
 }
