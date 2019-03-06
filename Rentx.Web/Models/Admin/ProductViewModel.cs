@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.AspNetCore.Http;
+using System.ComponentModel.DataAnnotations;
 
 namespace Rentx.Web.Models.Admin
 {
@@ -17,5 +18,10 @@ namespace Rentx.Web.Models.Admin
 
         [Required]
         public int AvailableQuantity { get; set; }
+
+        [Required]
+        public IFormFile Image { get; set; }
+
+        public string ImageFileName { get; set; }
     }
 }

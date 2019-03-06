@@ -1,7 +1,7 @@
 ﻿@model ProductViewModel
 
 <div class="text-center">
-    <form asp-controller="Admin" asp-action="Add" method="post">
+    <form asp-controller="Admin" asp-action="Add" method="post" enctype="multipart/form-data">
         <div class="row form-group">
             <div class="col">
                 <input type="text" class="form-control" asp-for="Title" placeholder="Title">
@@ -25,6 +25,14 @@
                 <input type="number" class="form-control" asp-for="AvailableQuantity" placeholder="AvailableQuantity">
             </div>
         </div>
+
+        <div class="row form-group">
+            <div class="col">
+                <input type="file" class="form-control" asp-for="Image" />
+            </div>
+        </div>
+
+        
 
         <div class="row form-group">
             <div class="col">

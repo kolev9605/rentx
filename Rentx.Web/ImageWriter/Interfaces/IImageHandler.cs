@@ -5,10 +5,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Rentx.Web.ImageWriter
+namespace Rentx.Web.ImageWriter.Interfaces
 {
     public interface IImageHandler
     {
-        Task<IActionResult> UploadImage(IFormFile file);
+        Task<string> UploadImage(IFormFile file);
     }
 }

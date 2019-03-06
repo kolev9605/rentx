@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
+using Rentx.Web.Common.Interfaces;
+using Rentx.Web.ImageWriter.Interfaces;
 using System;
 using System.IO;
 using System.Threading.Tasks;
@@ -7,11 +9,19 @@ namespace Rentx.Web.ImageWriter
 {
     public class ImageWriter : IImageWriter
     {
+        private readonly IPathHelper pathHelper;
+
+        public ImageWriter(IPathHelper pathHelper)
+        {
+            this.pathHelper = pathHelper;
+        }
+
         public async Task<string> UploadImage(IFormFile file)
         {
             if (CheckIfImageFile(file))
             {
-                return await WriteFile(file);
+                var fileName = await WriteFile(file);
+                return fileName;
             }
 
             return "Invalid image file";
@@ -41,13 +51,13 @@ namespace Rentx.Web.ImageWriter
         /// <returns></returns>
         public async Task<string> WriteFile(IFormFile file)
         {
-            string fileName;
+            string fileName = string.Empty;
             try
             {
                 var extension = "." + file.FileName.Split('.')[file.FileName.Split('.').Length - 1];
-                fileName = Guid.NewGuid().ToString() + extension; //Create a new Name 
-                                                                  //for the file due to security reasons.
-                var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot\\images", fileName);
+                fileName = Guid.NewGuid().ToString() + extension; //Create a new Name for the file due to security reasons.
+                
+                var path = this.pathHelper.GetImagePath(fileName);
 
                 using (var bits = new FileStream(path, FileMode.Create))
                 {

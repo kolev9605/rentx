@@ -1,6 +1,9 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Rentx.Web.Common;
+using Rentx.Web.Common.Interfaces;
+using Rentx.Web.ImageWriter;
+using Rentx.Web.ImageWriter.Interfaces;
 using Rentx.Web.Models.Admin;
 using Rentx.Web.Services.Interfaces;
 using System.Threading.Tasks;
@@ -11,10 +14,14 @@ namespace Rentx.Web.Controllers
     public class AdminController : Controller
     {
         private readonly IProductService productService;
+        private readonly IImageHandler imageHandler;
+        private readonly IPathHelper pathHelper;
 
-        public AdminController(IProductService productService)
+        public AdminController(IProductService productService, IImageHandler imageHandler, IPathHelper pathHelper)
         {
             this.productService = productService;
+            this.imageHandler = imageHandler;
+            this.pathHelper = pathHelper;
         }
 
         [HttpGet]
@@ -47,6 +54,9 @@ namespace Rentx.Web.Controllers
                 return View(model);
             }
 
+            var image = await this.imageHandler.UploadImage(model.Image);
+            model.ImageFileName = image;
+
             await this.productService.AddAsync(model);
             return RedirectToAction("Index");
         }
@@ -65,6 +75,10 @@ namespace Rentx.Web.Controllers
             {
                 return View(model);
             }
+
+            var image = await this.imageHandler.UploadImage(model.Image);
+
+            model.ImageFileName = image;
 
             var success = await this.productService.UpdateAsync(model);
             return RedirectToAction("Index");

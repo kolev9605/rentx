@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using Rentx.Web.Data;
 using Rentx.Web.Data.Seeders;
+using System;
+using System.IO;
 
 namespace Rentx.Web
 {
@@ -17,9 +19,10 @@ namespace Rentx.Web
                 var services = scope.ServiceProvider;
 
                 var context = services.GetRequiredService<ApplicationDbContext>();
-                ProductSeeder.SeedDatabase(context);
                 AdminSeeder.SeedDatabase(context, services).Wait();
             }
+
+            Directory.SetCurrentDirectory(AppContext.BaseDirectory);
 
             host.Run();
         }

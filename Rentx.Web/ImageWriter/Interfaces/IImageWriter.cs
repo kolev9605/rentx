@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using System.Threading.Tasks;
 
-namespace Rentx.Web.ImageWriter
+namespace Rentx.Web.ImageWriter.Interfaces
 {
     public interface IImageWriter
     {

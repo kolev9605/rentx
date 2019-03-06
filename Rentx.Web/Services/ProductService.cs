@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Http.Internal;
+using Microsoft.EntityFrameworkCore;
 using Rentx.Web.Data;
 using Rentx.Web.Data.Entities;
 using Rentx.Web.Models.Admin;
@@ -23,10 +24,11 @@ namespace Rentx.Web.Services
         {
             var product = new Product
             {
-                AvailableQuantity = model.AvailableQuantity,
-                Description = model.Description,
+                Title = model.Title,
                 Price = model.Price,
-                Title = model.Title
+                Description = model.Description,
+                AvailableQuantity = model.AvailableQuantity,
+                Image = model.ImageFileName
             };
 
             await this.dbContext.Products.AddAsync(product);
@@ -69,7 +71,8 @@ namespace Rentx.Web.Services
                 Title = product.Title,
                 Price = product.Price,
                 Description = product.Description,
-                AvailableQuantity = product.AvailableQuantity
+                AvailableQuantity = product.AvailableQuantity,
+                ImageFileName = product.Image
             };
 
             return productModel;
@@ -82,6 +85,7 @@ namespace Rentx.Web.Services
             product.Title = model.Title;
             product.AvailableQuantity = model.AvailableQuantity;
             product.Description = model.Description;
+            product.Image = model.ImageFileName;
 
             this.dbContext.Products.Update(product);
             var result = await this.dbContext.SaveChangesAsync();
