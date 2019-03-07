@@ -1,43 +1,48 @@
 ﻿@model ProductViewModel
 
-<div class="text-center">
-    <form asp-controller="Admin" asp-action="Add" method="post" enctype="multipart/form-data">
-        <div class="row form-group">
-            <div class="col">
-                <input type="text" class="form-control" asp-for="Title" placeholder="Title">
+<div class="row">
+    <div class="col-md-6 offset-md-3">
+        <form asp-controller="Admin" asp-action="Add" method="post" enctype="multipart/form-data">
+            <div class="row form-group">
+                <div class="col">
+                    <label asp-for="Title" class="control-label"></label>
+                    <input type="text" required class="form-control" asp-for="Title" placeholder="Title">
+                </div>
             </div>
-        </div>
 
-        <div class="row form-group">
-            <div class="col">
-                <input type="number" class="form-control" asp-for="Price" placeholder="Price">
+            <div class="row form-group">
+                <div class="col">
+                    <label asp-for="Price" class="control-label"></label>
+                    <input type="number" required class="form-control" asp-for="Price" placeholder="Price">
+                </div>
             </div>
-        </div>
 
-        <div class="row form-group">
-            <div class="col">
-                <input type="text" class="form-control" asp-for="Description" placeholder="Description">
+            <div class="row form-group">
+                <div class="col">
+                    <label asp-for="Description" class="control-label"></label>
+                    <textarea required class="form-control" asp-for="Description" placeholder="Description"></textarea>
+                </div>
             </div>
-        </div>
 
-        <div class="row form-group">
-            <div class="col">
-                <input type="number" class="form-control" asp-for="AvailableQuantity" placeholder="AvailableQuantity">
+            <div class="row form-group">
+                <div class="col">
+                    <label asp-for="AvailableQuantity" class="control-label"></label>
+                    <input type="number" required class="form-control" asp-for="AvailableQuantity" placeholder="AvailableQuantity">
+                </div>
             </div>
-        </div>
 
-        <div class="row form-group">
-            <div class="col">
-                <input type="file" class="form-control" asp-for="Image" />
+            <div class="row form-group">
+                <div class="col">
+                    <label asp-for="Image" class="control-label"></label>
+                    <input type="file" required class="form-control-file" asp-for="Image" />
+                </div>
             </div>
-        </div>
 
-        
-
-        <div class="row form-group">
-            <div class="col">
-                <button type="submit" class="btn btn-primary">Add</button>
+            <div class="row form-group">
+                <div class="col">
+                    <button type="submit" class="btn btn-primary">Add</button>
+                </div>
             </div>
-        </div>
-    </form>
+        </form>
+    </div>
 </div>

@@ -7,5 +7,6 @@ namespace Rentx.Web.Models.Catalog
 {
     public class CatalogProductsViewModel
     {
+        public IEnumerable<CatalogProductViewModel> ProductItems { get; set; }
     }
 }

@@ -60,6 +60,7 @@ namespace Rentx.Web
             services.AddTransient<IImageWriter, ImageWriter.ImageWriter>();
             services.AddTransient<IImageHandler, ImageWriter.ImageHandler>();
             services.AddTransient<IProductService, ProductService>();
+            services.AddTransient<ICatalogService, CatalogService>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
