@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Rentx.Web.Models.Catalog;
 using Rentx.Web.Services.Interfaces;
+using System.Threading.Tasks;
 
 namespace Rentx.Web.Controllers
 {
@@ -13,12 +14,11 @@ namespace Rentx.Web.Controllers
             this.catalogService = catalogService;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            var products = this.catalogService.GetCatalogProducts();
-            CatalogProductsViewModel model = new CatalogProductsViewModel();
-            model.ProductItems = products;
-            return View(model);
+            var products = await this.catalogService.GetCatalogProductsAsync();
+
+            return View(products);
         }
     }
 }

@@ -1,5 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
+using Rentx.Web.Common;
 using Rentx.Web.Data;
 using Rentx.Web.Models.Catalog;
 using Rentx.Web.Services.Interfaces;
@@ -15,16 +18,18 @@ namespace Rentx.Web.Services
             this.dbContext = dbContext;
         }
 
-        public IEnumerable<CatalogProductViewModel> GetCatalogProducts()
+        public async Task<IEnumerable<CatalogProductViewModel>> GetCatalogProductsAsync()
         {
-            var products = this.dbContext.Products
+            var products = await this.dbContext.Products
                 .Select(p => new CatalogProductViewModel
                 {
-                    Title = p.Title,
-                    Description = p.Description.Substring(0, 70).Trim() + "...",
-                    Image = p.Image
+                    Title = p.Title.TrimTitle(),
+                    Description = p.Description.TrimDescription(),
+                    Image = p.Image,
+                    Price = p.Price,
+                    Id = p.Id
                 })
-                .ToList();
+                .ToListAsync();
 
             return products;
         }

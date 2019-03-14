@@ -1,10 +1,10 @@
-﻿@model CatalogProductsViewModel
+﻿@model IEnumerable<CatalogProductViewModel>
 
 <div class="text-center">
     <h1 class="display-4">Catalog</h1>
 </div>
 <div class="row">
-    @foreach (var productItem in Model.ProductItems)
+    @foreach (var productItem in Model)
     {
         <div class="col-xs-12 col-sm-6 col-md-4">
             <div class="image-flip" ontouchstart="this.classList.toggle('hover');">
@@ -14,6 +14,7 @@
                             <div class="card-body text-center">
                                 <p><img class=" img-fluid" src="~/images/@productItem.Image" alt="card image"></p>
                                 <h4 class="card-title">@productItem.Title</h4>
+                                <h5 class="card-price">$@productItem.Price</h5>
                                 <a href="#" class="btn btn-primary btn-sm"><i class="fa fa-plus"></i></a>
                             </div>
                         </div>
@@ -30,8 +31,8 @@
                                         </a>
                                     </li>
                                     <li class="list-inline-item">
-                                        <a class="social-icon text-xs-center" target="_blank" href="#">
-                                            <i class="fa fa-shopping-cart"></i>
+                                        <a class="social-icon text-xs-center" target="_blank" asp-controller="Product" asp-action="Details" asp-route-productId="@productItem.Id">
+                                            <i class="fa fa-info-circle "></i>
                                         </a>
                                     </li>
                                 </ul>

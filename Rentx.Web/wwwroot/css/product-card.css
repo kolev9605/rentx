@@ -24,12 +24,12 @@ section {
     padding: 60px 0;
 }
 
-    section .section-title {
-        text-align: center;
-        color: #007b5e;
-        margin-bottom: 50px;
-        text-transform: uppercase;
-    }
+section .section-title {
+    text-align: center;
+    color: #007b5e;
+    margin-bottom: 50px;
+    text-transform: uppercase;
+}
 
 #team .card {
     border: none;
@@ -116,16 +116,27 @@ section {
 
 .backside .card a {
     font-size: 38px;
+    margin-left: 10px;
+    margin-right: 10px;
     color: #007b5e !important;
 }
 
-.frontside .card .card-title,
-.backside .card .card-title {
-    color: #007b5e !important;
-}
+    .frontside
+    .card
+    .card-title,
+    .backside
+    .card
+    .card-title,
+    .card-price {
+        color: #007b5e !important;
+    }
 
 .frontside .card .card-body img {
     width: 120px;
     height: 120px;
     border-radius: 50%;
+}
+
+.card-price {
+    margin-top:5px;
 }
