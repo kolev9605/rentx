@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
 using Rentx.Web.Common;
+using Rentx.Web.Data.Entities;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
@@ -13,7 +14,7 @@ namespace Rentx.Web.Data.Seeders
         {
             context.Database.EnsureCreated();
             var RoleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
-            var UserManager = serviceProvider.GetRequiredService<UserManager<IdentityUser>>();
+            var UserManager = serviceProvider.GetRequiredService<UserManager<ApplicationUser>>();
             string[] roleNames = { RoleConstants.Administrator, RoleConstants.User };
             IdentityResult roleResult;
 
@@ -26,14 +27,15 @@ namespace Rentx.Web.Data.Seeders
                 }
             }
 
-            IdentityUser user = await UserManager.FindByEmailAsync("admin@rentx.com");
+            ApplicationUser user = await UserManager.FindByEmailAsync("admin@rentx.com");
 
             if (user == null)
             {
-                user = new IdentityUser()
+                user = new ApplicationUser()
                 {
                     UserName = "admin@rentx.com",
                     Email = "admin@rentx.com",
+                    ShoppingCartId = null,
                 };
 
                 await UserManager.CreateAsync(user, "admin@rentx.com");

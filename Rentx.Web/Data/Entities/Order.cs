@@ -11,6 +11,6 @@ namespace Rentx.Web.Data.Entities
 
         public string UserId { get; set; }
 
-        public IdentityUser User { get; set; }
+        public ApplicationUser User { get; set; }
     }
 }

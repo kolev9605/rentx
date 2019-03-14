@@ -10,6 +10,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Rentx.Web.Common;
 using Rentx.Web.Common.Interfaces;
 using Rentx.Web.Data;
+using Rentx.Web.Data.Entities;
 using Rentx.Web.ImageWriter.Interfaces;
 using Rentx.Web.Services;
 using Rentx.Web.Services.Interfaces;
@@ -39,11 +40,11 @@ namespace Rentx.Web
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
 
-            //services.AddDefaultIdentity<IdentityUser>()
+            //services.AddDefaultIdentity<ApplicationUser>()
             //    .AddDefaultUI(UIFramework.Bootstrap4)
             //    .AddEntityFrameworkStores<ApplicationDbContext>();
 
-            services.AddIdentity<IdentityUser, IdentityRole>(options =>
+            services.AddIdentity<ApplicationUser, IdentityRole>(options =>
             {
                 options.Password.RequiredLength = 5;
                 options.Password.RequireLowercase = false;
@@ -61,6 +62,7 @@ namespace Rentx.Web
             services.AddTransient<IImageHandler, ImageWriter.ImageHandler>();
             services.AddTransient<IProductService, ProductService>();
             services.AddTransient<ICatalogService, CatalogService>();
+            services.AddTransient<IShoppingCartService, ShoppingCartService>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
