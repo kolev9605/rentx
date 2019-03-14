@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace Rentx.Web.Data.Entities
 {
@@ -7,11 +8,13 @@ namespace Rentx.Web.Data.Entities
     {
         public int Id { get; set; }
 
-        public IEnumerable<ShoppingCartDetails> ShoppingCartDetails { get; set; }
+        public List<ShoppingCartDetails> ShoppingCartDetails { get; set; }
 
+        
         public string UserId { get; set; }
 
-        public IdentityUser User { get; set; }
+        [Required]
+        public ApplicationUser User { get; set; }
 
         public decimal TotalAmount { get; set; }
     }
