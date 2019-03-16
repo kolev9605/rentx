@@ -39,7 +39,7 @@ namespace Rentx.Web.Data.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     ProductId = table.Column<int>(nullable: false),
-                    Qantity = table.Column<int>(nullable: false),
+                    Quantity = table.Column<int>(nullable: false),
                     ShoppingCartId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>

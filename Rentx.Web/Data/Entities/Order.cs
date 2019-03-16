@@ -7,7 +7,7 @@ namespace Rentx.Web.Data.Entities
     {
         public int Id { get; set; }
 
-        public IEnumerable<OrderDetails> OrderDetails { get; set; }
+        public List<OrderDetails> OrderDetails { get; set; } = new List<OrderDetails>();
 
         public string UserId { get; set; }
 

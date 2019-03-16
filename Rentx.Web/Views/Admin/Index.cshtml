@@ -6,11 +6,11 @@
             <thead>
                 <tr>
                     <th scope="col">Id</th>
-                    <th scope="col">Price</th>
-                    <th scope="col">Title</th>
-                    <th scope="col">AvailableQuantity</th>
-                    <th scope="col">Edit</th>
-                    <th scope="col">Delete</th>
+                    <th scope="col">Цена</th>
+                    <th scope="col">Име</th>
+                    <th scope="col">Налично количество</th>
+                    <th scope="col">Редактирай</th>
+                    <th scope="col">Изтрий</th>
                 </tr>
             </thead>
             <tbody>
@@ -21,13 +21,13 @@
                         <td>@product.Price</td>
                         <td>@product.Title</td>
                         <td>@product.AvailableQuantity</td>
-                        <td><a asp-controller="Admin" asp-action="Edit" asp-route-productId="@product.Id">Edit</a></td>
-                        <td><a asp-controller="Admin" asp-action="Delete" asp-route-productId="@product.Id">Delete</a></td>
+                        <td><a asp-controller="Admin" asp-action="Edit" asp-route-productId="@product.Id">Редактирай</a></td>
+                        <td><a asp-controller="Admin" asp-action="Delete" asp-route-productId="@product.Id">Изтрий</a></td>
                     </tr>
                 }
             </tbody>
         </table>
     }
 
-    <a asp-controller="Admin" asp-action="Add" class="btn btn-primary">Add Product</a>
+    <a asp-controller="Admin" asp-action="Add" class="btn btn-primary">Добави продукт</a>
 </div>

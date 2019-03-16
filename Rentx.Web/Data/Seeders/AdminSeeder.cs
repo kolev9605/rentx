@@ -27,7 +27,7 @@ namespace Rentx.Web.Data.Seeders
                 }
             }
 
-            ApplicationUser user = await UserManager.FindByEmailAsync("admin@rentx.com");
+            var user = await UserManager.FindByEmailAsync("admin@rentx.com");
 
             if (user == null)
             {

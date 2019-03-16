@@ -8,7 +8,7 @@ namespace Rentx.Web.Data.Entities
     {
         public int Id { get; set; }
 
-        public List<ShoppingCartDetails> ShoppingCartDetails { get; set; }
+        public List<ShoppingCartDetails> ShoppingCartDetails { get; set; } = new List<ShoppingCartDetails>();
 
         
         public string UserId { get; set; }
