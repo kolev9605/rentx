@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Rentx.Web.Common;
 
 namespace Rentx.Web.Services
 {
@@ -49,7 +50,7 @@ namespace Rentx.Web.Services
                     Title = scd.Product.Title,
                     Image = scd.Product.Image,
                     Price = scd.Product.Price,
-                    Description = scd.Product.Description,
+                    Description = scd.Product.Description.TrimDescription(),
                     Id = scd.Id,
                     Quantity = scd.Quantity
                 })
