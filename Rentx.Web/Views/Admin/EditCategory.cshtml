@@ -1,0 +1,22 @@
+﻿@model CategoryViewModel
+
+<div class="row">
+    <div class="col">
+        <form asp-controller="Admin" asp-action="EditCategory" method="post" enctype="multipart/form-data">
+            <div class="row form-group">
+                <div class="col">
+                    <label asp-for="Name" class="control-label"></label>
+                    <input type="text" required class="form-control" asp-for="Name" placeholder="Title">
+                </div>
+            </div>
+
+            <input type="text" hidden asp-for="Id" />
+
+            <div class="row form-group text-center">
+                <div class="col">
+                    <button type="submit" class="btn btn-primary">Редактирай</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

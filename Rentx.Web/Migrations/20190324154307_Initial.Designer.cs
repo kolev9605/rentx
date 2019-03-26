@@ -7,11 +7,11 @@ using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Rentx.Web.Data;
 
-namespace Rentx.Web.Data.Migrations
+namespace Rentx.Web.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20190209203110_AddProducts")]
-    partial class AddProducts
+    [Migration("20190324154307_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -75,6 +75,9 @@ namespace Rentx.Web.Data.Migrations
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken();
 
+                    b.Property<string>("Discriminator")
+                        .IsRequired();
+
                     b.Property<string>("Email")
                         .HasMaxLength(256);
 
@@ -114,6 +117,8 @@ namespace Rentx.Web.Data.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers");
+
+                    b.HasDiscriminator<string>("Discriminator").HasValue("IdentityUser");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
@@ -192,6 +197,8 @@ namespace Rentx.Web.Data.Migrations
 
                     b.Property<string>("Description");
 
+                    b.Property<string>("Image");
+
                     b.Property<decimal>("Price");
 
                     b.Property<string>("Title");
@@ -199,6 +206,55 @@ namespace Rentx.Web.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Products");
+                });
+
+            modelBuilder.Entity("Rentx.Web.Data.Entities.ShoppingCart", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<decimal>("TotalAmount");
+
+                    b.Property<string>("UserId");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ShoppingCarts");
+                });
+
+            modelBuilder.Entity("Rentx.Web.Data.Entities.ShoppingCartDetails", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("ProductId");
+
+                    b.Property<int>("Quantity");
+
+                    b.Property<int>("ShoppingCartId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProductId");
+
+                    b.HasIndex("ShoppingCartId");
+
+                    b.ToTable("ShoppingCartDetails");
+                });
+
+            modelBuilder.Entity("Rentx.Web.Data.Entities.ApplicationUser", b =>
+                {
+                    b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUser");
+
+                    b.Property<int?>("ShoppingCartId");
+
+                    b.HasIndex("ShoppingCartId")
+                        .IsUnique()
+                        .HasFilter("[ShoppingCartId] IS NOT NULL");
+
+                    b.HasDiscriminator().HasValue("ApplicationUser");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -244,6 +300,26 @@ namespace Rentx.Web.Data.Migrations
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("Rentx.Web.Data.Entities.ShoppingCartDetails", b =>
+                {
+                    b.HasOne("Rentx.Web.Data.Entities.Product", "Product")
+                        .WithMany("ShoppingCartDetails")
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("Rentx.Web.Data.Entities.ShoppingCart", "ShoppingCart")
+                        .WithMany("ShoppingCartDetails")
+                        .HasForeignKey("ShoppingCartId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("Rentx.Web.Data.Entities.ApplicationUser", b =>
+                {
+                    b.HasOne("Rentx.Web.Data.Entities.ShoppingCart", "ShoppingCart")
+                        .WithOne("User")
+                        .HasForeignKey("Rentx.Web.Data.Entities.ApplicationUser", "ShoppingCartId");
                 });
 #pragma warning restore 612, 618
         }

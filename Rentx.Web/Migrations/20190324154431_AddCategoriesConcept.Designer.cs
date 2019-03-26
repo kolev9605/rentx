@@ -7,17 +7,17 @@ using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Rentx.Web.Data;
 
-namespace Rentx.Web.Data.Migrations
+namespace Rentx.Web.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20190314173111_AddShoppingCartAndDetails")]
-    partial class AddShoppingCartAndDetails
+    [Migration("20190324154431_AddCategoriesConcept")]
+    partial class AddCategoriesConcept
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.2.1-servicing-10028")
+                .HasAnnotation("ProductVersion", "2.2.0-rtm-35687")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -187,6 +187,19 @@ namespace Rentx.Web.Data.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
+            modelBuilder.Entity("Rentx.Web.Data.Entities.Category", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Name");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Categories");
+                });
+
             modelBuilder.Entity("Rentx.Web.Data.Entities.Product", b =>
                 {
                     b.Property<int>("Id")
@@ -194,6 +207,8 @@ namespace Rentx.Web.Data.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<int>("AvailableQuantity");
+
+                    b.Property<int>("CategoryId");
 
                     b.Property<string>("Description");
 
@@ -204,6 +219,8 @@ namespace Rentx.Web.Data.Migrations
                     b.Property<string>("Title");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CategoryId");
 
                     b.ToTable("Products");
                 });
@@ -231,7 +248,7 @@ namespace Rentx.Web.Data.Migrations
 
                     b.Property<int>("ProductId");
 
-                    b.Property<int>("Qantity");
+                    b.Property<int>("Quantity");
 
                     b.Property<int>("ShoppingCartId");
 
@@ -248,7 +265,7 @@ namespace Rentx.Web.Data.Migrations
                 {
                     b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUser");
 
-                    b.Property<int>("ShoppingCartId");
+                    b.Property<int?>("ShoppingCartId");
 
                     b.HasIndex("ShoppingCartId")
                         .IsUnique()
@@ -302,6 +319,14 @@ namespace Rentx.Web.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
+            modelBuilder.Entity("Rentx.Web.Data.Entities.Product", b =>
+                {
+                    b.HasOne("Rentx.Web.Data.Entities.Category", "Category")
+                        .WithMany("Products")
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
             modelBuilder.Entity("Rentx.Web.Data.Entities.ShoppingCartDetails", b =>
                 {
                     b.HasOne("Rentx.Web.Data.Entities.Product", "Product")
@@ -319,8 +344,7 @@ namespace Rentx.Web.Data.Migrations
                 {
                     b.HasOne("Rentx.Web.Data.Entities.ShoppingCart", "ShoppingCart")
                         .WithOne("User")
-                        .HasForeignKey("Rentx.Web.Data.Entities.ApplicationUser", "ShoppingCartId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("Rentx.Web.Data.Entities.ApplicationUser", "ShoppingCartId");
                 });
 #pragma warning restore 612, 618
         }

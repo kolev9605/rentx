@@ -28,7 +28,8 @@ namespace Rentx.Web.Services
                 Price = model.Price,
                 Description = model.Description,
                 AvailableQuantity = model.AvailableQuantity,
-                Image = model.ImageFileName
+                Image = model.ImageFileName,
+                CategoryId = int.Parse(model.Category)
             };
 
             await this.dbContext.Products.AddAsync(product);
@@ -72,7 +73,8 @@ namespace Rentx.Web.Services
                 Price = product.Price,
                 Description = product.Description,
                 AvailableQuantity = product.AvailableQuantity,
-                ImageFileName = product.Image
+                ImageFileName = product.Image,
+                Category = product.Category.Id.ToString()
             };
 
             return productModel;
@@ -86,6 +88,7 @@ namespace Rentx.Web.Services
             product.AvailableQuantity = model.AvailableQuantity;
             product.Description = model.Description;
             product.Image = model.ImageFileName;
+            product.CategoryId = int.Parse(model.Category);
 
             this.dbContext.Products.Update(product);
             var result = await this.dbContext.SaveChangesAsync();
@@ -97,7 +100,8 @@ namespace Rentx.Web.Services
         private async Task<Product> GetProductById(int productId)
         {
             var product = await this.dbContext.Products
-                .FindAsync(productId);
+                .Include(p => p.Category)
+                .FirstOrDefaultAsync(p => p.Id == productId);
 
             if (product == null)
             {

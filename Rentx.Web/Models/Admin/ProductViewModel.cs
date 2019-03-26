@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace Rentx.Web.Models.Admin
@@ -22,6 +24,13 @@ namespace Rentx.Web.Models.Admin
         [Required]
         public IFormFile Image { get; set; }
 
+        [Required]
+        public int CategoryId { get; set; }
+
         public string ImageFileName { get; set; }
+
+        public List<SelectListItem> Categories { get; set; }
+
+        public string Category { get; set; }
     }
 }

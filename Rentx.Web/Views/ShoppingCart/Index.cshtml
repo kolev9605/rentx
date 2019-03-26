@@ -5,7 +5,7 @@
         <div class="card-header bg-dark text-light">
             <i class="fa fa-shopping-cart" aria-hidden="true"></i>
                 Количка
-            <a asp-controller="Catalog" asp-action="Index" class="btn btn-outline-info btn-sm pull-right">Продължи да пазаруваш</a>
+            <a asp-controller="Home" asp-action="Index" class="btn btn-outline-info btn-sm pull-right">Продължи да пазаруваш</a>
             <div class="clearfix"></div>
         </div>
         @if (Model == null || !Model.ShoppingCartItems.Any())

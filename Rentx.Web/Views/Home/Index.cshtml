@@ -1,3 +1,47 @@
-﻿<div class="text-center">
-    <h1 class="display-4">Добре дошли</h1>
+﻿@model IEnumerable<CatalogProductViewModel>
+
+<div class="text-center">
+    <h1 class="display-4">Каталог</h1>
+</div>
+<div class="row">
+    @foreach (var productItem in Model)
+    {
+        <div class="col-xs-12 col-sm-6 col-md-4">
+            <div class="image-flip" ontouchstart="this.classList.toggle('hover');">
+                <div class="mainflip">
+                    <div class="frontside">
+                        <div class="card">
+                            <div class="card-body text-center">
+                                <p><img class=" img-fluid" src="~/images/@productItem.Image" alt="card image"></p>
+                                <h4 class="card-title">@productItem.Title</h4>
+                                <h5 class="card-price">$@productItem.Price</h5>
+                                <a href="#" class="btn btn-primary btn-sm"><i class="fa fa-plus"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="backside">
+                        <div class="card">
+                            <div class="card-body text-center mt-4">
+                                <h4 class="card-title">@productItem.Title</h4>
+                                <p class="card-text">@productItem.Description</p>
+                                <ul class="list-inline">
+                                    <li class="list-inline-item">
+                                        <a class="social-icon text-xs-center" target="_blank" asp-controller="ShoppingCart" asp-action="Add" asp-route-productId="@productItem.Id">
+                                            <i class="fa fa-shopping-cart"></i>
+                                        </a>
+                                    </li>
+                                    <li class="list-inline-item">
+                                        <a class="social-icon text-xs-center" target="_blank" asp-controller="Product" asp-action="Details" asp-route-productId="@productItem.Id">
+                                            <i class="fa fa-info-circle "></i>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+
 </div>

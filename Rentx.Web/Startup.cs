@@ -63,6 +63,7 @@ namespace Rentx.Web
             services.AddTransient<IProductService, ProductService>();
             services.AddTransient<ICatalogService, CatalogService>();
             services.AddTransient<IShoppingCartService, ShoppingCartService>();
+            services.AddTransient<ICategoryService, CategoryService>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }

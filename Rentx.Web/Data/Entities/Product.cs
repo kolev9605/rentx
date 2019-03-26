@@ -17,5 +17,9 @@ namespace Rentx.Web.Data.Entities
         public string Image { get; set; }
 
         public List<ShoppingCartDetails> ShoppingCartDetails { get; set; } = new List<ShoppingCartDetails>();
+
+        public int CategoryId { get; set; }
+
+        public Category Category { get; set; }
     }
 }
