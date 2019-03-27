@@ -5,6 +5,7 @@ using Rentx.Web.Common.Interfaces;
 using Rentx.Web.ImageWriter;
 using Rentx.Web.ImageWriter.Interfaces;
 using Rentx.Web.Models.Admin;
+using Rentx.Web.Models.Enums;
 using Rentx.Web.Services.Interfaces;
 using System.Linq;
 using System.Threading.Tasks;
@@ -20,8 +21,8 @@ namespace Rentx.Web.Controllers
         private readonly IPathHelper pathHelper;
 
         public AdminController(
-            IProductService productService, 
-            IImageHandler imageHandler, 
+            IProductService productService,
+            IImageHandler imageHandler,
             IPathHelper pathHelper,
             ICategoryService categoryService)
         {
@@ -32,15 +33,25 @@ namespace Rentx.Web.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(AdminMenuType type)
         {
             var model = new AdminDetailsViewModel();
 
-            var products = await this.productService.GetAllAsync();
-            var categories = await this.categoryService.GetAllAsync();
-
-            model.ProductViewModels = products;
-            model.CategoryViewModels = categories;
+            switch (type)
+            {
+                case AdminMenuType.ProductMenu:
+                    {
+                        var products = await this.productService.GetAllAsync();
+                        model.ProductViewModels = products;
+                        break;
+                    }
+                case AdminMenuType.CategoriesMenu:
+                    {
+                        var categories = await this.categoryService.GetAllAsync();
+                        model.CategoryViewModels = categories;
+                        break;
+                    }
+            }
 
             return View(model);
         }
@@ -115,9 +126,6 @@ namespace Rentx.Web.Controllers
             return RedirectToAction("Index");
         }
 
-
-
-
         [HttpGet]
         public async Task<IActionResult> DeleteCategory(int categoryId)
         {
@@ -157,8 +165,8 @@ namespace Rentx.Web.Controllers
             if (!ModelState.IsValid)
             {
                 return View(model);
-            }            
-            
+            }
+
             var success = await this.categoryService.UpdateAsync(model);
             return RedirectToAction("Index");
         }

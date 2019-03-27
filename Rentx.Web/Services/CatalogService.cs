@@ -18,7 +18,24 @@ namespace Rentx.Web.Services
             this.dbContext = dbContext;
         }
 
-        public async Task<IEnumerable<CatalogProductViewModel>> GetCatalogProductsAsync()
+        public async Task<IEnumerable<CatalogProductViewModel>> GetCatalogProductsByCategoryIdAsync(int categoryId)
+        {
+            var products = await this.dbContext.Products
+                .Where(p => p.CategoryId == categoryId)
+                .Select(p => new CatalogProductViewModel
+                {
+                    Title = p.Title.TrimTitle(),
+                    Description = p.Description.TrimDescription(),
+                    Image = p.Image,
+                    Price = p.Price,
+                    Id = p.Id
+                })
+                .ToListAsync();
+
+            return products;
+        }
+
+        public async Task<IEnumerable<CatalogProductViewModel>> GetAllCatalogProductsAsync()
         {
             var products = await this.dbContext.Products
                 .Select(p => new CatalogProductViewModel

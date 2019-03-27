@@ -6,6 +6,8 @@ namespace Rentx.Web.Services.Interfaces
 {
     public interface ICatalogService
     {
-        Task<IEnumerable<CatalogProductViewModel>> GetCatalogProductsAsync();
+        Task<IEnumerable<CatalogProductViewModel>> GetCatalogProductsByCategoryIdAsync(int categoryId);
+
+        Task<IEnumerable<CatalogProductViewModel>> GetAllCatalogProductsAsync();
     }
 }

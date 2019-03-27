@@ -3,15 +3,15 @@
     <div class="mb-5">
         <ul class="nav nav-tabs justify-content-center">
             <li class="nav-item">
-                <a class="nav-link" href="#">Products</a>
+                <a asp-controller="Admin" asp-action="Index" asp-route-type="ProductMenu" class="nav-link">Products</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Categories</a>
+                <a asp-controller="Admin" asp-action="Index" asp-route-type="CategoriesMenu" class="nav-link">Categories</a>
             </li>
         </ul>
 
     </div>
-    @if (Model.ProductViewModels.Any())
+    @if (Model.ProductViewModels != null && Model.ProductViewModels.Any())
     {
         <table class="table">
             <thead>
@@ -38,18 +38,22 @@
                 }
             </tbody>
         </table>
-    }
-    <div>
-        <a asp-controller="Admin" asp-action="AddProduct" class="btn btn-primary">Добави продукт</a>
-    </div>
 
-    @if (Model.CategoryViewModels.Any())
+        <div>
+            <a asp-controller="Admin" asp-action="AddProduct" class="btn btn-primary">Добави продукт</a>
+        </div>
+    }
+
+
+    @if (Model.CategoryViewModels != null && Model.CategoryViewModels.Any())
     {
         <table class="table">
             <thead>
                 <tr>
                     <th scope="col">Id</th>
                     <th scope="col">Име</th>
+                    <th scope="col">Редактирай</th>
+                    <th scope="col">Изтрий</th>
                 </tr>
             </thead>
             <tbody>
@@ -64,9 +68,11 @@
                 }
             </tbody>
         </table>
+
+        <div>
+            <a asp-controller="Admin" asp-action="AddCategory" class="btn btn-primary">Добави категория</a>
+        </div>
     }
 
-    <div>
-        <a asp-controller="Admin" asp-action="AddCategory" class="btn btn-primary">Добави категория</a>
-    </div>
+
 </div>
