@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Rentx.Web.Models.Admin
 {
-    public class AdminDetailsViewModel
+    public class AdminDetailsViewModel : ErrorViewModel
     {
         public IEnumerable<ProductViewModel> ProductViewModels { get; set; }
 

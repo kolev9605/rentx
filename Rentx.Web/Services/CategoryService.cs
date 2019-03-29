@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using Rentx.Web.Common.Exceptions;
 using Rentx.Web.Data;
 using Rentx.Web.Data.Entities;
 using Rentx.Web.Models.Admin;
@@ -35,7 +36,7 @@ namespace Rentx.Web.Services
             var category = await this.GetCategoryById(categoryId);
             if (category.Products.Any())
             {
-                return false;
+                throw new RentxValidationException($"Category with Id {categoryId} can't be deleted, because there are products associated with it.");
             }
 
             this.dbContext.Categories.Remove(category);
@@ -91,7 +92,7 @@ namespace Rentx.Web.Services
 
             if (category == null)
             {
-                throw new ArgumentNullException($"Category with id {categoryId} does not exist.");
+                throw new RentxValidationException($"Category with id {categoryId} does not exist.");
             }
 
             return category;

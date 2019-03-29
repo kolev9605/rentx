@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http.Internal;
 using Microsoft.EntityFrameworkCore;
+using Rentx.Web.Common.Exceptions;
 using Rentx.Web.Data;
 using Rentx.Web.Data.Entities;
 using Rentx.Web.Models.Admin;
@@ -105,7 +106,7 @@ namespace Rentx.Web.Services
 
             if (product == null)
             {
-                throw new ArgumentNullException($"Product with id {productId} does not exist.");
+                throw new RentxValidationException($"Product with id {productId} does not exist.");
             }
 
             return product;

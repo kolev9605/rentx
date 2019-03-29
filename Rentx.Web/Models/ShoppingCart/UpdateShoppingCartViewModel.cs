@@ -5,10 +5,8 @@ using System.Threading.Tasks;
 
 namespace Rentx.Web.Models.ShoppingCart
 {
-    public class UpdateShoppingCartViewModel
+    public class UpdateShoppingCartViewModel : ErrorViewModel
     {
-        public int Id { get; set; }
-
-        public int Quantity { get; set; }
+        public IEnumerable<ShoppingCartItemViewModel> shoppingCartItems { get; set; }
     }
 }

@@ -1,6 +1,6 @@
 ﻿namespace Rentx.Web.Models.Catalog
 {
-    public class CatalogProductViewModel
+    public class CatalogProductViewModel : ErrorViewModel
     {
         public int Id { get; set; }
 

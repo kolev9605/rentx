@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Rentx.Web.Models.Admin
 {
-    public class CategoryViewModel
+    public class CategoryViewModel : ErrorViewModel
     {
         public int Id { get; set; }
 
