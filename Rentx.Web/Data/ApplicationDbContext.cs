@@ -16,6 +16,8 @@ namespace Rentx.Web.Data
         public DbSet<ShoppingCartDetails> ShoppingCartDetails { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<ApplicationUser> ApplicationUsers { get; set; }
+        public DbSet<Order> Orders { get; set; }
+        public DbSet<OrderDetails> OrderDetails { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -31,6 +33,18 @@ namespace Rentx.Web.Data
                 .HasOne(sc => sc.User)
                 .WithOne(u => u.ShoppingCart)
                 .HasForeignKey<ApplicationUser>(u => u.ShoppingCartId);
+
+            builder.Entity<Order>()
+                .HasMany(o => o.OrderDetails)
+                .WithOne(od => od.Order);
+
+            builder.Entity<OrderDetails>()
+                .HasOne(od => od.Product)
+                .WithMany(p => p.OrderDetails);
+
+            builder.Entity<Order>()
+                .HasOne(o => o.User)
+                .WithMany(u => u.Orders);
 
             builder.Entity<Product>()
                 .HasOne(p => p.Category)
