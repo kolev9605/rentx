@@ -18,6 +18,8 @@ namespace Rentx.Web.Data.Entities
 
         public List<ShoppingCartDetails> ShoppingCartDetails { get; set; } = new List<ShoppingCartDetails>();
 
+        public List<OrderDetails> OrderDetails { get; set; } = new List<OrderDetails>();
+
         public int CategoryId { get; set; }
 
         public Category Category { get; set; }
