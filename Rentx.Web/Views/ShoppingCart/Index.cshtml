@@ -4,7 +4,7 @@
     <div class="card shopping-cart">
         <div class="card-header bg-dark text-light">
             <i class="fa fa-shopping-cart" aria-hidden="true"></i>
-                Количка
+            Количка
             <a asp-controller="Home" asp-action="Index" class="btn btn-outline-info btn-sm pull-right">Продължи да пазаруваш</a>
             <div class="clearfix"></div>
         </div>
@@ -49,14 +49,17 @@
                         </div>
                         <hr>
                     }
-                    <div class="pull-right">
-                        <input type="submit" class="btn btn-outline-secondary pull-right" value="Update shopping cart" />
+                    <div class="row">
+                        <div class="pull-right col">
+                            <input type="submit" class="btn btn-outline-secondary pull-right" value="Update shopping cart" />
+                        </div>
                     </div>
+
                 </div>
             </form>
             <div class="card-footer">
                 <div class="pull-right" style="margin: 10px">
-                    <a href="" class="btn btn-success pull-right">Купи</a>
+                    <a asp-controller="order" asp-action="Index" asp-route-shoppingCartId="@Model.ShoppingCartId" class="btn btn-success pull-right">Купи</a>
                     <div class="pull-right" style="margin: 5px">
                         Обща сума: <b>$@Model.TotalAmount</b>
                     </div>

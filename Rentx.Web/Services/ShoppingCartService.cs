@@ -60,6 +60,7 @@ namespace Rentx.Web.Services
 
             var model = new ShoppingCartViewModel();
             model.ShoppingCartItems = shoppingCartItems;
+            model.ShoppingCartId = userCart.Id;
 
             return model;
         }
