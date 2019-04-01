@@ -1,13 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Security.Claims;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Rentx.Web.Models;
+﻿using Microsoft.AspNetCore.Mvc;
 using Rentx.Web.Models.Catalog;
 using Rentx.Web.Services.Interfaces;
+using System.Threading.Tasks;
 
 namespace Rentx.Web.Controllers
 {

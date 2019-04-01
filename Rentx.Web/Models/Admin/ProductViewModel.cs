@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Rentx.Web.Models.Admin
 {
-    public class ProductViewModel : ErrorViewModel
+    public class ProductViewModel : MessageViewModel
     {
         public int Id { get; set; }
 

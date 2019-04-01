@@ -1,5 +1,6 @@
 ﻿using Rentx.Web.Common;
 using Rentx.Web.Data;
+using Rentx.Web.Models;
 using Rentx.Web.Models.Order;
 using Rentx.Web.Services.Interfaces;
 using System.Linq;
@@ -26,13 +27,19 @@ namespace Rentx.Web.Services
                     Title = p.Product.Title,
                     Price = p.Product.Price,
                     Quantity = p.Quantity,
-                    Description = p.Product.Description.TrimDescription()
+                    Description = p.Product.Description.TrimDescription(),
+                    ProductId = p.ProductId
                 })
                 .ToList();
 
             model.Products = products;
 
             return model;
+        }
+
+        public MessageViewModel SubmitOrder(OrderDetailsViewModel model)
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

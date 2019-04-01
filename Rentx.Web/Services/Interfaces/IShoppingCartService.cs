@@ -9,10 +9,10 @@ namespace Rentx.Web.Services.Interfaces
     {
         Task<ShoppingCartViewModel> GetShoppingCartAsync(string userId);
 
-        Task<ErrorViewModel> AddAsync(AddToCartViewModel model);
+        Task<MessageViewModel> AddAsync(AddToCartViewModel model);
 
-        Task<ErrorViewModel> RemoveAsync(int shoppingCartDetailsId);
+        Task<MessageViewModel> RemoveAsync(int shoppingCartDetailsId);
 
-        Task<ErrorViewModel> UpdateAsync(ShoppingCartViewModel shoppingCartViewModel);
+        Task<MessageViewModel> UpdateAsync(ShoppingCartViewModel shoppingCartViewModel);
     }
 }

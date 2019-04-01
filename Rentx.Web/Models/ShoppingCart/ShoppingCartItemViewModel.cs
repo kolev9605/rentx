@@ -1,6 +1,6 @@
 ﻿namespace Rentx.Web.Models.ShoppingCart
 {
-    public class ShoppingCartItemViewModel : ErrorViewModel
+    public class ShoppingCartItemViewModel : MessageViewModel
     {
         public int Id { get; set; }
 

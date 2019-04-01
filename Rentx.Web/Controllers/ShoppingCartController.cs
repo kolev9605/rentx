@@ -33,11 +33,8 @@ namespace Rentx.Web.Controllers
                 UserId = this.User.GetUserId()
             };
 
-            var errorViewModel = await this.shoppingCartService.AddAsync(addToCartModel);
-            if (errorViewModel.HasError)
-            {
-                errorViewModel.SetErrorMessage(this);
-            }
+            var messageViewModel = await this.shoppingCartService.AddAsync(addToCartModel);
+            messageViewModel.SetMessage(this);
 
             return RedirectToAction("Index");
         }
@@ -45,11 +42,8 @@ namespace Rentx.Web.Controllers
         [HttpGet]
         public async Task<IActionResult> Remove(int shoppingCartDetailsId)
         {
-            var errorViewModel = await this.shoppingCartService.RemoveAsync(shoppingCartDetailsId);
-            if (errorViewModel.HasError)
-            {
-                errorViewModel.SetErrorMessage(this);
-            }
+            var messageViewModel = await this.shoppingCartService.RemoveAsync(shoppingCartDetailsId);
+            messageViewModel.SetMessage(this);
 
             return RedirectToAction("Index");
         }
@@ -57,12 +51,8 @@ namespace Rentx.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> Update(ShoppingCartViewModel shoppingCartViewModel)
         {
-            var errorViewModel = await this.shoppingCartService.UpdateAsync(shoppingCartViewModel);
-
-            if (errorViewModel.HasError)
-            {
-                errorViewModel.SetErrorMessage(this);
-            }
+            var messageViewModel = await this.shoppingCartService.UpdateAsync(shoppingCartViewModel);
+            messageViewModel.SetMessage(this);
 
             return RedirectToAction("Index");
         }
