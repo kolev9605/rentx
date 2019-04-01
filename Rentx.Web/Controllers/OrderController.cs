@@ -19,5 +19,12 @@ namespace Rentx.Web.Controllers
             OrderDetailsViewModel model = this.orderService.GetOrderDetails(shoppingCartId);
             return View(model);
         }
+
+        [HttpPost]
+        public IActionResult Index(OrderDetailsViewModel model)
+        {
+            
+            return RedirectToAction("Index", "Order");
+        }
     }
 }

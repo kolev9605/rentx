@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Rentx.Web.Models.ShoppingCart
 {
-    public class AddToCartViewModel : ErrorViewModel
+    public class AddToCartViewModel : MessageViewModel
     {
         public int ProductId { get; set; }
 

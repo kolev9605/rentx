@@ -5,11 +5,15 @@ namespace Rentx.Web.Extensions
 {
     public static class MvcResponseExtensions
     {
-        public static void SetErrorMessage(this ErrorViewModel errorViewModel, Controller controller)
+        public static void SetMessage(this MessageViewModel messageViewModel, Controller controller)
         {
-            if (errorViewModel.HasError)
+            if (messageViewModel.HasError)
             {
-                controller.TempData["Error"] = errorViewModel.Message;
+                controller.TempData["Error"] = messageViewModel.Message;
+            }
+            else if(messageViewModel.HasSuccess)
+            {
+                controller.TempData["Success"] = messageViewModel.Message;
             }
         }
     }

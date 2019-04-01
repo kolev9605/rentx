@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace Rentx.Web.Models.ShoppingCart
 {
-    public class ShoppingCartViewModel : ErrorViewModel
+    public class ShoppingCartViewModel : MessageViewModel
     {
         public int ShoppingCartId { get; set; }
 

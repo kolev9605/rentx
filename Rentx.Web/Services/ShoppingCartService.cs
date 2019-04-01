@@ -65,15 +65,16 @@ namespace Rentx.Web.Services
             return model;
         }
 
-        public async Task<ErrorViewModel> AddAsync(AddToCartViewModel model)
+        public async Task<MessageViewModel> AddAsync(AddToCartViewModel model)
         {
-            var errorViewModel = new ErrorViewModel();
+            var messageViewModel = new MessageViewModel();
             var userCart = await this.GetOrCreateUserCartAsync(model.UserId);
+
             var productToAdd = this.dbContext.Products.FirstOrDefault(p => p.Id == model.ProductId);
             if (productToAdd == null)
             {
-                errorViewModel.Message = $"Product With id {model.ProductId} could not be found.";
-                //throw new RentxValidationException($"Product With id {model.ProductId} could not be found.");
+                messageViewModel.SetError($"Product With id {model.ProductId} could not be found.");
+                return messageViewModel;
             }
 
             if (userCart.ShoppingCartDetails.Any(scd => scd.ProductId == productToAdd.Id))
@@ -83,9 +84,8 @@ namespace Rentx.Web.Services
 
                 if (productToAdd.AvailableQuantity < productDetails.Quantity)
                 {
-                    productDetails.Quantity = productToAdd.AvailableQuantity;
-                    errorViewModel.Message = $"Not enough available quantity. Currently in stock: {productToAdd.AvailableQuantity}.";
-                    //throw new RentxValidationException($"Not enough available quantity. Currently in stock: {productToAdd.AvailableQuantity}.");
+                    messageViewModel.SetError($"Not enough available quantity. Currently in stock: {productToAdd.AvailableQuantity}.");
+                    return messageViewModel;
                 }
 
                 this.dbContext.ShoppingCartDetails.Update(productDetails);
@@ -95,8 +95,8 @@ namespace Rentx.Web.Services
             {
                 if (productToAdd.AvailableQuantity < model.Quantity)
                 {
-                    errorViewModel.Message = $"Not enough available quantity. Currently in stock: {productToAdd.AvailableQuantity}.";
-                    //throw new RentxValidationException($"Not enough available quantity. Currently in stock: {productToAdd.AvailableQuantity}.");
+                    messageViewModel.SetError($"Not enough available quantity. Currently in stock: {productToAdd.AvailableQuantity}.");
+                    return messageViewModel;
                 }
 
                 ShoppingCartDetails shoppingCartDetails = new ShoppingCartDetails
@@ -110,29 +110,31 @@ namespace Rentx.Web.Services
                 await dbContext.SaveChangesAsync();
             }
 
-            return errorViewModel;
+            messageViewModel.SetSuccess("Product successfully added to the shopping cart.");
+            return messageViewModel;
         }
 
-        public async Task<ErrorViewModel> RemoveAsync(int shoppingCartDetailsId)
+        public async Task<MessageViewModel> RemoveAsync(int shoppingCartDetailsId)
         {
-            var errorViewModel = new ErrorViewModel();
+            var messageViewModel = new MessageViewModel();
 
             var shoppingCartDetails = await this.dbContext.ShoppingCartDetails.FirstOrDefaultAsync(scd => scd.Id == shoppingCartDetailsId);
             if (shoppingCartDetails == null)
             {
-                errorViewModel.Message = $"Shopping cart item with id {shoppingCartDetailsId} was not found";
-                //throw new RentxValidationException($"Shopping cart item with id {shoppingCartDetailsId} was not found");
+                messageViewModel.SetError($"Shopping cart item with id {shoppingCartDetailsId} was not found");
+                return messageViewModel;
             }
 
             this.dbContext.ShoppingCartDetails.Remove(shoppingCartDetails);
             await this.dbContext.SaveChangesAsync();
 
-            return errorViewModel;
+            messageViewModel.SetSuccess("Product successfukly removed from the shopping cart.");
+            return messageViewModel;
         }
 
-        public async Task<ErrorViewModel> UpdateAsync(ShoppingCartViewModel shoppingCartViewModel)
+        public async Task<MessageViewModel> UpdateAsync(ShoppingCartViewModel shoppingCartViewModel)
         {
-            var errorViewModel = new ErrorViewModel();
+            var messageViewModel = new MessageViewModel();
 
             foreach (var item in shoppingCartViewModel.ShoppingCartItems)
             {
@@ -149,14 +151,14 @@ namespace Rentx.Web.Services
 
                 if (shoppingCartItem == null)
                 {
-                    errorViewModel.Message = $"Shopping cart details with Id {shoppingCartItem.Id} was not found.";
-                    //throw new RentxValidationException($"Shopping cart details with Id {shoppingCartItem.Id} was not found.");
+                    messageViewModel.SetError($"Shopping cart details with Id {shoppingCartItem.Id} was not found.");
+                    return messageViewModel;
                 }
 
                 if (item.Quantity > shoppingCartItem.Product.AvailableQuantity)
                 {
-                    errorViewModel.Message = "Not enough available quantity in stock.";
-                    //throw new RentxValidationException("Not enough available quantity in stock.");
+                    messageViewModel.SetError("Not enough available quantity in stock.");
+                    return messageViewModel;
                 }
 
                 shoppingCartItem.Quantity = item.Quantity;
@@ -164,7 +166,9 @@ namespace Rentx.Web.Services
             }
 
             await this.dbContext.SaveChangesAsync();
-            return errorViewModel;
+
+            messageViewModel.SetSuccess("Shopping cart updated.");
+            return messageViewModel;
         }
 
         private async Task<ShoppingCart> GetOrCreateUserCartAsync(string userId)

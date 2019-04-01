@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace Rentx.Web.Models.Admin
+﻿namespace Rentx.Web.Models.Admin
 {
-    public class CategoryViewModel : ErrorViewModel
+    public class CategoryViewModel : MessageViewModel
     {
         public int Id { get; set; }
 
