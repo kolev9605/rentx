@@ -11,33 +11,36 @@
         </ul>
 
     </div>
-    @if (Model.ProductViewModels != null && Model.ProductViewModels.Any())
+    @if (Model.ProductViewModels != null)
     {
-        <table class="table">
-            <thead>
-                <tr>
-                    <th scope="col">Id</th>
-                    <th scope="col">Цена</th>
-                    <th scope="col">Име</th>
-                    <th scope="col">Налично количество</th>
-                    <th scope="col">Редактирай</th>
-                    <th scope="col">Изтрий</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var product in Model.ProductViewModels)
-                {
+        @if (Model.ProductViewModels.Any())
+        {
+            <table class="table">
+                <thead>
                     <tr>
-                        <td>@product.Id</td>
-                        <td>@product.Price</td>
-                        <td>@product.Title</td>
-                        <td>@product.AvailableQuantity</td>
-                        <td><a asp-controller="Admin" asp-action="EditProduct" asp-route-productId="@product.Id">Редактирай</a></td>
-                        <td><a asp-controller="Admin" asp-action="DeleteProduct" asp-route-productId="@product.Id">Изтрий</a></td>
+                        <th scope="col">Id</th>
+                        <th scope="col">Цена</th>
+                        <th scope="col">Име</th>
+                        <th scope="col">Налично количество</th>
+                        <th scope="col">Редактирай</th>
+                        <th scope="col">Изтрий</th>
                     </tr>
-                }
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                    @foreach (var product in Model.ProductViewModels)
+                    {
+                        <tr>
+                            <td>@product.Id</td>
+                            <td>@product.Price</td>
+                            <td>@product.Title</td>
+                            <td>@product.AvailableQuantity</td>
+                            <td><a asp-controller="Admin" asp-action="EditProduct" asp-route-productId="@product.Id">Редактирай</a></td>
+                            <td><a asp-controller="Admin" asp-action="DeleteProduct" asp-route-productId="@product.Id">Изтрий</a></td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
 
         <div>
             <a asp-controller="Admin" asp-action="AddProduct" class="btn btn-primary">Добави продукт</a>
@@ -45,34 +48,40 @@
     }
 
 
-    @if (Model.CategoryViewModels != null && Model.CategoryViewModels.Any())
-    {
-        <table class="table">
-            <thead>
-                <tr>
-                    <th scope="col">Id</th>
-                    <th scope="col">Име</th>
-                    <th scope="col">Редактирай</th>
-                    <th scope="col">Изтрий</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var category in Model.CategoryViewModels)
-                {
-                    <tr>
-                        <td>@category.Id</td>
-                        <td>@category.Name</td>
-                        <td><a asp-controller="Admin" asp-action="EditCategory" asp-route-categoryId="@category.Id">Редактирай</a></td>
-                        <td><a asp-controller="Admin" asp-action="DeleteCategory" asp-route-categoryId="@category.Id">Изтрий</a></td>
-                    </tr>
-                }
-            </tbody>
-        </table>
 
+
+    @if (Model.CategoryViewModels != null)
+    {
+        @if (Model.CategoryViewModels.Any())
+        {
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">Id</th>
+                        <th scope="col">Име</th>
+                        <th scope="col">Редактирай</th>
+                        <th scope="col">Изтрий</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var category in Model.CategoryViewModels)
+                    {
+                        <tr>
+                            <td>@category.Id</td>
+                            <td>@category.Name</td>
+                            <td><a asp-controller="Admin" asp-action="EditCategory" asp-route-categoryId="@category.Id">Редактирай</a></td>
+                            <td><a asp-controller="Admin" asp-action="DeleteCategory" asp-route-categoryId="@category.Id">Изтрий</a></td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
         <div>
             <a asp-controller="Admin" asp-action="AddCategory" class="btn btn-primary">Добави категория</a>
         </div>
     }
+
+
 
 
 </div>

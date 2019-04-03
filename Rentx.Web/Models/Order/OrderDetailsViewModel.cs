@@ -9,17 +9,17 @@ namespace Rentx.Web.Models.Order
     {
         public IList<OrderProductItemViewModel> Products { get; set; }
 
-        public decimal TotalOrderPrice
+        public decimal Total
         {
             get
             {
-                decimal subtotal = 0;
+                decimal total = 0;
                 foreach (var product in this.Products)
                 {
-                    subtotal += product.Price * product.Quantity;
+                    total += product.Price * product.Quantity;
                 }
 
-                return subtotal;
+                return total;
             }
         }
 
@@ -50,7 +50,7 @@ namespace Rentx.Web.Models.Order
         public bool SaveInformation { get; set; }
 
         [Required]
-        public string PaymentOption { get; set; }
+        public int PaymentOption { get; set; }
 
         [Required]
         public string NameOnCard { get; set; }
@@ -63,5 +63,7 @@ namespace Rentx.Web.Models.Order
 
         [Required]
         public string Cvv { get; set; }
+
+        public IEnumerable<PaymentOptionViewModel> PaymentOptions { get; set; }
     }
 }

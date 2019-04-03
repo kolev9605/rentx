@@ -3,7 +3,7 @@
 <div class="row">
     <div class="col-md-4 order-md-2 mb-4">
         <h4 class="d-flex justify-content-between align-items-center mb-3">
-            <span class="text-muted">Your cart</span>
+            <span class="text-muted">Вашата количка</span>
             <span class="badge badge-secondary badge-pill">@Model.Products.Count()</span>
         </h4>
         <ul class="list-group mb-3">
@@ -14,12 +14,12 @@
                         <h6 class="my-0">@product.Title</h6>
                         <small class="text-muted">@product.Description</small>
                     </div>
-                    <span class="text-muted">$@product.Price</span>
+                    <span class="text-muted">@product.Price лв.</span>
                 </li>
             }
             <li class="list-group-item d-flex justify-content-between">
-                <span>Total (USD)</span>
-                <strong>$@Model.TotalOrderPrice</strong>
+                <span>Общо (BGN)</span>
+                <strong>@Model.Total лв.</strong>
             </li>
         </ul>
 
@@ -33,18 +33,18 @@
         </form>*@
     </div>
     <div class="col-md-8 order-md-1">
-        <h4 class="mb-3">Billing address</h4>
+        <h4 class="mb-3">Данни за доставка</h4>
         <form class="needs-validation" novalidate="" asp-controller="Order" asp-action="Index" method="post">
             <div class="row">
                 <div class="col-md-6 mb-3">
-                    <label asp-for="FirstName" for="firstName">First name</label>
+                    <label asp-for="FirstName" for="firstName">Име</label>
                     <input asp-for="FirstName" type="text" class="form-control" id="firstName" placeholder="" value="" required="">
                     <div class="invalid-feedback">
                         Valid first name is required.
                     </div>
                 </div>
                 <div class="col-md-6 mb-3">
-                    <label asp-for="LastName" for="lastName">Last name</label>
+                    <label asp-for="LastName" for="lastName">Фамилия</label>
                     <input asp-for="LastName" type="text" class="form-control" id="lastName" placeholder="" value="" required="">
                     <div class="invalid-feedback">
                         Valid last name is required.
@@ -53,7 +53,7 @@
             </div>
 
             <div class="mb-3">
-                <label asp-for="Username" for="username">Username</label>
+                <label asp-for="Username" for="username">Потребителско име</label>
                 <div class="input-group">
                     <div class="input-group-prepend">
                         <span class="input-group-text">@@</span>
@@ -66,7 +66,7 @@
             </div>
 
             <div class="mb-3">
-                <label asp-for="Email" for="email">Email <span class="text-muted">(Optional)</span></label>
+                <label asp-for="Email" for="email">Email адрес <span class="text-muted">(По желание)</span></label>
                 <input asp-for="Email" type="email" class="form-control" id="email" placeholder="you@example.com">
                 <div class="invalid-feedback">
                     Please enter a valid email address for shipping updates.
@@ -74,21 +74,21 @@
             </div>
 
             <div class="mb-3">
-                <label asp-for="Address1" for="address">Address</label>
-                <input asp-for="Address1" type="text" class="form-control" id="address" placeholder="1234 Main St" required="">
+                <label asp-for="Address1" for="address">Адрес</label>
+                <input asp-for="Address1" type="text" class="form-control" id="address" placeholder="Варна, Аспарухово, ул. Хр. Ботев...." required="">
                 <div class="invalid-feedback">
                     Please enter your shipping address.
                 </div>
             </div>
 
             <div class="mb-3">
-                <label asp-for="Address2" for="address2">Address 2 <span class="text-muted">(Optional)</span></label>
-                <input asp-for="Address2" type="text" class="form-control" id="address2" placeholder="Apartment or suite">
+                <label asp-for="Address2" for="address2">Адрес 2 <span class="text-muted">(По желание)</span></label>
+                <input asp-for="Address2" type="text" class="form-control" id="address2" placeholder="">
             </div>
 
             <div class="row">
                 <div class="col-md-5 mb-3">
-                    <label asp-for="Country" for="country">Country</label>
+                    <label asp-for="Country" for="country">Държава</label>
                     <select asp-for="Country" class="custom-select d-block w-100" id="country" required="">
                         <option value="">Choose...</option>
                         <option>Bulgaria</option>
@@ -108,7 +108,7 @@
                 </div>
             </div>*@
                 <div class="col-md-3 mb-3">
-                    <label asp-for="PostCode" for="zip">Zip</label>
+                    <label asp-for="PostCode" for="zip">Пощенски код</label>
                     <input asp-for="PostCode" type="text" class="form-control" id="zip" placeholder="" required="">
                     <div class="invalid-feedback">
                         Zip code required.
@@ -118,18 +118,18 @@
             <hr class="mb-4">
             <div class="custom-control custom-checkbox">
                 <input asp-for="ShippingAddressIsTheSameAsBillingAddress" type="checkbox" class="custom-control-input" id="same-address">
-                <label asp-for="ShippingAddressIsTheSameAsBillingAddress" class="custom-control-label" for="same-address">Shipping address is the same as my billing address</label>
+                <label asp-for="ShippingAddressIsTheSameAsBillingAddress" class="custom-control-label" for="same-address">Адресът за доставка е същия като адресът за фактуриране</label>
             </div>
             <div class="custom-control custom-checkbox">
                 <input asp-for="SaveInformation" type="checkbox" class="custom-control-input" id="save-info">
-                <label asp-for="SaveInformation" class="custom-control-label" for="save-info">Save this information for next time</label>
+                <label asp-for="SaveInformation" class="custom-control-label" for="save-info">Запазете информацията ми за следващи поръчки</label>
             </div>
             <hr class="mb-4">
 
-            <h4 class="mb-3">Payment</h4>
+            <h4 class="mb-3">Плащане</h4>
 
             <div class="d-block my-3">
-                <div class="custom-control custom-radio">
+                @*<div class="custom-control custom-radio">
                     <input asp-for="PaymentOption" value="1" id="credit" name="paymentMethod" type="radio" class="custom-control-input" checked="" required="">
                     <label asp-for="PaymentOption" class="custom-control-label" for="credit">Credit card</label>
                 </div>
@@ -140,19 +140,27 @@
                 <div class="custom-control custom-radio">
                     <input asp-for="PaymentOption" value="2" id="paypal" name="paymentMethod" type="radio" class="custom-control-input" required="">
                     <label asp-for="PaymentOption" class="custom-control-label" for="paypal">Paypal</label>
-                </div>
+                </div>*@
+
+                @for (int i = 0; i < Model.PaymentOptions.Count(); i++)
+                {
+                    <div class="custom-control custom-radio">
+                        <input asp-for="PaymentOption" value="@(Model.PaymentOptions.ElementAtOrDefault(i).Value)" type="radio" class="custom-control-input" checked="" required="">
+                        <label asp-for="PaymentOption" class="custom-control-label" for="credit">@(Model.PaymentOptions.ElementAtOrDefault(i).Name)</label>
+                    </div>
+                }
             </div>
             <div class="row">
                 <div class="col-md-6 mb-3">
-                    <label asp-for="NameOnCard" for="cc-name">Name on card</label>
+                    <label asp-for="NameOnCard" for="cc-name">Имената на картата</label>
                     <input asp-for="NameOnCard" type="text" class="form-control" id="cc-name" placeholder="" required="">
-                    <small class="text-muted">Full name as displayed on card</small>
+                    <small class="text-muted">Пълните имена изписани върху картата</small>
                     <div class="invalid-feedback">
                         Name on card is required
                     </div>
                 </div>
                 <div class="col-md-6 mb-3">
-                    <label asp-for="CreditCardNumber" for="cc-number">Credit card number</label>
+                    <label asp-for="CreditCardNumber" for="cc-number">Номер на кредитна карта</label>
                     <input asp-for="CreditCardNumber" type="text" class="form-control" id="cc-number" placeholder="" required="">
                     <div class="invalid-feedback">
                         Credit card number is required
@@ -161,7 +169,7 @@
             </div>
             <div class="row">
                 <div class="col-md-3 mb-3">
-                    <label asp-for="ExpirationDate" for="cc-expiration">Expiration</label>
+                    <label asp-for="ExpirationDate" for="cc-expiration">Дата на изтичане</label>
                     <input asp-for="ExpirationDate" type="text" class="form-control" id="cc-expiration" placeholder="" required="">
                     <div class="invalid-feedback">
                         Expiration date required
@@ -176,7 +184,7 @@
                 </div>
             </div>
             <hr class="mb-4">
-            <button class="btn btn-primary btn-lg btn-block" type="submit">Continue to checkout</button>
+            <button class="btn btn-primary btn-lg btn-block" type="submit">Продължи към поръчката</button>
 
             @for (int i = 0; i < Model.Products.Count; i++)
             {
@@ -184,6 +192,7 @@
                 <input asp-for="@Model.Products[i].Price" type="hidden" />
                 <input asp-for="@Model.Products[i].Quantity" type="hidden" />
                 <input asp-for="@Model.Products[i].Description" type="hidden" />
+                <input asp-for="@Model.Products[i].ProductId" type="hidden" />
             }
         </form>
     </div>

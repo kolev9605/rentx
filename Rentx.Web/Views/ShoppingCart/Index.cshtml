@@ -32,7 +32,7 @@
                             </div>
                             <div class="col-12 col-sm-12 text-sm-center col-md-4 text-md-right row">
                                 <div class="col-3 col-sm-3 col-md-6 text-md-right" style="padding-top: 5px">
-                                    <h6><strong>@Model.ShoppingCartItems[i].Price <span class="text-muted">x</span></strong></h6>
+                                    <h6><strong>@Model.ShoppingCartItems[i].Price лв. <span class="text-muted">x</span></strong></h6>
                                 </div>
                                 <div class="col-4 col-sm-4 col-md-4">
                                     <div class="quantity">
@@ -51,7 +51,7 @@
                     }
                     <div class="row">
                         <div class="pull-right col">
-                            <input type="submit" class="btn btn-outline-secondary pull-right" value="Update shopping cart" />
+                            <input type="submit" class="btn btn-outline-secondary pull-right" value="Обнови количката" />
                         </div>
                     </div>
 
@@ -61,7 +61,7 @@
                 <div class="pull-right" style="margin: 10px">
                     <a asp-controller="order" asp-action="Index" asp-route-shoppingCartId="@Model.ShoppingCartId" class="btn btn-success pull-right">Купи</a>
                     <div class="pull-right" style="margin: 5px">
-                        Обща сума: <b>$@Model.TotalAmount</b>
+                        Обща сума: <b>@Model.TotalAmount лв.</b>
                     </div>
                 </div>
             </div>

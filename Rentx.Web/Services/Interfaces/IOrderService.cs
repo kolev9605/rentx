@@ -1,12 +1,13 @@
 ﻿using Rentx.Web.Models;
 using Rentx.Web.Models.Order;
+using System.Threading.Tasks;
 
 namespace Rentx.Web.Services.Interfaces
 {
     public interface IOrderService
     {
-        OrderDetailsViewModel GetOrderDetails(int shoppingCartId);
+        Task<OrderDetailsViewModel> GetOrderDetailsAsync(int shoppingCartId);
 
-        MessageViewModel SubmitOrder(OrderDetailsViewModel model);
+        Task<MessageViewModel> SubmitOrderAsync(OrderDetailsViewModel model, string userId);
     }
 }

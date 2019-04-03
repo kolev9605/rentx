@@ -171,6 +171,36 @@ namespace Rentx.Web.Services
             return messageViewModel;
         }
 
+        public async Task<MessageViewModel> ClearShoppingCart(string userId)
+        {
+            ShoppingCart userCart = this.dbContext.ShoppingCarts
+                .Select(sc => new ShoppingCart
+                {
+                    ShoppingCartDetails = sc.ShoppingCartDetails.Select(scd => new ShoppingCartDetails
+                    {
+                        Id = scd.Id,
+                        Product = scd.Product,
+                        ProductId = scd.ProductId,
+                        Quantity = scd.Quantity,
+                        ShoppingCartId = scd.ShoppingCartId
+                    }).ToList(),
+                    Id = sc.Id,
+                    TotalAmount = sc.TotalAmount,
+                    UserId = sc.UserId,
+                })
+                .FirstOrDefault(sc => sc.UserId == userId);
+
+            if (userCart == null)
+            {
+                return null;
+            }
+
+            this.dbContext.ShoppingCartDetails.RemoveRange(userCart.ShoppingCartDetails);
+            await this.dbContext.SaveChangesAsync();
+
+            return null;
+        }
+
         private async Task<ShoppingCart> GetOrCreateUserCartAsync(string userId)
         {
             ShoppingCart userCart = this.dbContext.ShoppingCarts

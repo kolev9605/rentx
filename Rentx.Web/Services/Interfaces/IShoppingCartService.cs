@@ -14,5 +14,7 @@ namespace Rentx.Web.Services.Interfaces
         Task<MessageViewModel> RemoveAsync(int shoppingCartDetailsId);
 
         Task<MessageViewModel> UpdateAsync(ShoppingCartViewModel shoppingCartViewModel);
+
+        Task<MessageViewModel> ClearShoppingCart(string userId);
     }
 }

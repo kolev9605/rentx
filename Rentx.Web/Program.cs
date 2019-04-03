@@ -20,6 +20,8 @@ namespace Rentx.Web
 
                 var context = services.GetRequiredService<ApplicationDbContext>();
                 AdminSeeder.SeedDatabase(context, services).Wait();
+                CategorySeeder.SeedDatabase(context).Wait();
+                ProductSeeder.SeedDatabase(context).Wait();
             }
 
             Directory.SetCurrentDirectory(AppContext.BaseDirectory);

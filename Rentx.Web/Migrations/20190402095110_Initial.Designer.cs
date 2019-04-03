@@ -10,14 +10,14 @@ using Rentx.Web.Data;
 namespace Rentx.Web.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20190329005200_AddOrdersConcept")]
-    partial class AddOrdersConcept
+    [Migration("20190402095110_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.2.0-rtm-35687")
+                .HasAnnotation("ProductVersion", "2.2.1-servicing-10028")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -206,7 +206,41 @@ namespace Rentx.Web.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<string>("Address1")
+                        .IsRequired();
+
+                    b.Property<string>("Address2");
+
+                    b.Property<string>("Country")
+                        .IsRequired();
+
+                    b.Property<string>("CreditCardNumber")
+                        .IsRequired();
+
+                    b.Property<string>("Cvv")
+                        .IsRequired();
+
+                    b.Property<string>("Email");
+
+                    b.Property<DateTime>("ExpirationDate");
+
+                    b.Property<string>("NameOnCard")
+                        .IsRequired();
+
+                    b.Property<string>("PaymentOption")
+                        .IsRequired();
+
+                    b.Property<string>("PostCode")
+                        .IsRequired();
+
+                    b.Property<bool>("SaveInformation");
+
+                    b.Property<bool>("ShippingAddressIsTheSameAsBillingAddress");
+
                     b.Property<string>("UserId");
+
+                    b.Property<string>("Username")
+                        .IsRequired();
 
                     b.HasKey("Id");
 

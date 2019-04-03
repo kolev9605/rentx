@@ -1,30 +1,37 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Rentx.Web.Extensions;
 using Rentx.Web.Models.Order;
 using Rentx.Web.Services.Interfaces;
+using System.Threading.Tasks;
 
 namespace Rentx.Web.Controllers
 {
     public class OrderController : Controller
     {
         private readonly IOrderService orderService;
+        private readonly IShoppingCartService shoppingCartService;
 
-        public OrderController(IOrderService orderService)
+        public OrderController(IOrderService orderService, IShoppingCartService shoppingCartService)
         {
             this.orderService = orderService;
+            this.shoppingCartService = shoppingCartService;
         }
 
         [HttpGet]
-        public IActionResult Index(int shoppingCartId)
+        public async Task<IActionResult> Index(int shoppingCartId)
         {
-            OrderDetailsViewModel model = this.orderService.GetOrderDetails(shoppingCartId);
+            OrderDetailsViewModel model = await this.orderService.GetOrderDetailsAsync(shoppingCartId);
             return View(model);
         }
 
         [HttpPost]
-        public IActionResult Index(OrderDetailsViewModel model)
+        public async Task<IActionResult> Index(OrderDetailsViewModel model)
         {
+            var messageViewModel = await this.orderService.SubmitOrderAsync(model, this.User.GetUserId());
+            await this.shoppingCartService.ClearShoppingCart(this.User.GetUserId());
             
-            return RedirectToAction("Index", "Order");
+            messageViewModel.SetMessage(this);
+            return RedirectToAction("Index", "Home");
         }
     }
 }
