@@ -9,17 +9,29 @@
         <ul class="list-group mb-3">
             @foreach (var product in Model.Products)
             {
-                <li class="list-group-item d-flex justify-content-between lh-condensed">
-                    <div>
-                        <h6 class="my-0">@product.Title</h6>
-                        <small class="text-muted">@product.Description</small>
-                    </div>
-                    <span class="text-muted">@product.Price лв.</span>
-                </li>
+            <li class="list-group-item d-flex justify-content-between lh-condensed">
+                <div>
+                    <h6 class="my-0">@product.Title</h6>
+                    <small class="text-muted">@product.Description</small>
+                </div>
+                @if (product.RentPrice.HasValue)
+                {
+                    <span class="text-muted">@product.RentPrice лв/ден</span>
+
+                }
+                else
+                {
+                    <span class="text-muted">@product.Price лв</span>
+                }
+            </li>
             }
             <li class="list-group-item d-flex justify-content-between">
                 <span>Общо (BGN)</span>
                 <strong>@Model.Total лв.</strong>
+            </li>
+            <li class="list-group-item d-flex justify-content-between">
+                <span>Общо на ден (за стоките под наем) (BGN)</span>
+                <strong>@Model.TotalRent лв/ден</strong>
             </li>
         </ul>
 
@@ -114,15 +126,6 @@
                         Zip code required.
                     </div>
                 </div>
-            </div>
-            <hr class="mb-4">
-            <div class="custom-control custom-checkbox">
-                <input asp-for="ShippingAddressIsTheSameAsBillingAddress" type="checkbox" class="custom-control-input" id="same-address">
-                <label asp-for="ShippingAddressIsTheSameAsBillingAddress" class="custom-control-label" for="same-address">Адресът за доставка е същия като адресът за фактуриране</label>
-            </div>
-            <div class="custom-control custom-checkbox">
-                <input asp-for="SaveInformation" type="checkbox" class="custom-control-input" id="save-info">
-                <label asp-for="SaveInformation" class="custom-control-label" for="save-info">Запазете информацията ми за следващи поръчки</label>
             </div>
             <hr class="mb-4">
 

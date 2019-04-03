@@ -6,7 +6,9 @@ namespace Rentx.Web.Data.Entities
     {
         public int Id { get; set; }
 
-        public decimal Price { get; set; }
+        public decimal? Price { get; set; }
+
+        public decimal? RentPrice { get; set; }
 
         public string Title { get; set; }
 

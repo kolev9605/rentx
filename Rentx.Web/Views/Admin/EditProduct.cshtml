@@ -10,10 +10,17 @@
                 </div>
             </div>
 
-            <div class="row form-group">
+            <div id="priceInput" class="row form-group">
                 <div class="col">
                     <label asp-for="Price" class="control-label"></label>
-                    <input type="number" required class="form-control" asp-for="Price" placeholder="Price">
+                    <input type="number" novalidate class="form-control" asp-for="Price" placeholder="Price">
+                </div>
+            </div>
+
+            <div id="rentPriceInput" class="row form-group">
+                <div class="col">
+                    <label asp-for="RentPrice" class="control-label"></label>
+                    <input type="number" novalidate class="form-control" asp-for="RentPrice" placeholder="Rent Price">
                 </div>
             </div>
 
@@ -32,9 +39,9 @@
             </div>
 
             <div class="row form-group">
-                <div class="col">
+                <div id="categoryDropDown" class="col">
                     <label asp-for="Category" class="control-label"></label>
-                    <select required class="form-control" asp-for="Category" asp-items="Model.Categories"></select>
+                    <select required class="form-control categoryDropDown" asp-for="Category" asp-items="Model.Categories"></select>
                 </div>
             </div>
 
@@ -53,9 +60,50 @@
                     <button type="submit" class="btn btn-primary">Редактирай</button>
                 </div>
             </div>
+            <div class="form-check">
+                <label class="form-check-label">
+                    <input id="rentCheckbox" type="checkbox" class="form-check-input" value="">Can be rented?
+                </label>
+            </div>
         </form>
     </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"
+            asp-fallback-src="~/lib/jquery/dist/jquery.min.js"
+            asp-fallback-test="window.jQuery"
+            crossorigin="anonymous"
+            integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=">
+    </script>
+
+    <script>
+
+
+        $(document).ready(function () {
+            $("#rentPriceInput").hide();
+            $("#priceInput input").val('');
+            $("#rentPriceInput input").val('');
+
+            $('#rentCheckbox').change(function () {
+                if (this.checked) {
+                    $("#priceInput").hide();
+                    $("#priceInput input").val('');
+                    $("#rentPriceInput").show();
+                    //$("#categoryDropDown select").prop("disabled", true);
+                    $("#categoryDropDown select").attr("style", "pointer-events: none;");
+                    $("#categoryDropDown select").val(4);
+                }
+                else {
+                    $("#rentPriceInput").hide();
+                    $("#rentPriceInput input").val('');
+                    $("#priceInput").show();
+                    //$("#categoryDropDown select").prop("disabled", false);
+                    $("#categoryDropDown select").attr("style", "pointer-events: auto;");
+                    $("#categoryDropDown select").val(1);
+                };
+            });
+        });
+    </script>
     <div class="col">
         <img src="~/images/@Model.ImageFileName" class="img-thumbnail">
-    </div>    
+    </div>
 </div>

@@ -10,6 +10,10 @@
 
         public string Title { get; set; }
 
-        public decimal Price { get; set; }
+        public decimal? Price { get; set; }
+
+        public decimal? RentPrice { get; set; }
+
+        public bool IsRentable => this.RentPrice.HasValue;
     }
 }

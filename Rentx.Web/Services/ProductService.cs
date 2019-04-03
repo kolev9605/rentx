@@ -27,10 +27,11 @@ namespace Rentx.Web.Services
             {
                 Title = model.Title,
                 Price = model.Price,
+                RentPrice = model.RentPrice,
                 Description = model.Description,
                 AvailableQuantity = model.AvailableQuantity,
                 Image = model.ImageFileName,
-                CategoryId = int.Parse(model.Category)
+                CategoryId = model.Category
             };
 
             await this.dbContext.Products.AddAsync(product);
@@ -55,6 +56,7 @@ namespace Rentx.Web.Services
                     Id = p.Id,
                     Title = p.Title,
                     Price = p.Price,
+                    RentPrice = p.RentPrice,
                     Description = p.Description,
                     AvailableQuantity = p.AvailableQuantity
                 })
@@ -72,10 +74,11 @@ namespace Rentx.Web.Services
                 Id = product.Id,
                 Title = product.Title,
                 Price = product.Price,
+                RentPrice = product.RentPrice,
                 Description = product.Description,
                 AvailableQuantity = product.AvailableQuantity,
                 ImageFileName = product.Image,
-                Category = product.Category.Id.ToString()
+                Category = product.Category.Id
             };
 
             return productModel;
@@ -85,11 +88,12 @@ namespace Rentx.Web.Services
         {
             var product = await this.GetProductById(model.Id);
             product.Price = model.Price;
+            product.RentPrice = model.RentPrice;
             product.Title = model.Title;
             product.AvailableQuantity = model.AvailableQuantity;
             product.Description = model.Description;
             product.Image = model.ImageFileName;
-            product.CategoryId = int.Parse(model.Category);
+            product.CategoryId = model.Category;
 
             this.dbContext.Products.Update(product);
             var result = await this.dbContext.SaveChangesAsync();

@@ -10,5 +10,6 @@ namespace Rentx.Web.Models.ShoppingCart
         public IList<ShoppingCartItemViewModel> ShoppingCartItems { get; set; }
 
         public decimal TotalAmount => ShoppingCartItems.Sum(sci => sci.Subtotal);
+        public decimal TotalRentAmount => ShoppingCartItems.Sum(sci => sci.SubtotalRent);
     }
 }

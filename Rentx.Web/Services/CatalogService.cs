@@ -28,6 +28,7 @@ namespace Rentx.Web.Services
                     Description = p.Description.TrimDescription(),
                     Image = p.Image,
                     Price = p.Price,
+                    RentPrice = p.RentPrice,
                     Id = p.Id
                 })
                 .ToListAsync();
@@ -44,6 +45,7 @@ namespace Rentx.Web.Services
                     Description = p.Description.TrimDescription(),
                     Image = p.Image,
                     Price = p.Price,
+                    RentPrice = p.RentPrice,
                     Id = p.Id
                 })
                 .ToListAsync();

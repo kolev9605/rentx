@@ -21,10 +21,20 @@
                     <h3 class="title mb-3">@Model.Title</h3>
                     <p class="price-detail-wrap">
                         <span class="price h3 text-warning">
-                            <span class="num">@Model.Price</span>
+                            @if (Model.RentPrice.HasValue)
+                            {
+                                <span class="num">@Model.RentPrice</span>
+                            }
+                            else
+                            {
+                                <span class="num">@Model.Price</span>
+                            }
                             <span class="currency">лв.</span>
                         </span>
-                        <span>/на ден</span>
+                        @if (Model.RentPrice.HasValue)
+                        {
+                            <span>/ ден</span>
+                        }
                     </p> <!-- price-detail-wrap .// -->
                     <dl class="item-property">
                         <dt>Описание</dt>

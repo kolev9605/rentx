@@ -6,7 +6,9 @@
 
         public string Title { get; set; }
 
-        public decimal Price { get; set; }
+        public decimal? Price { get; set; }
+
+        public decimal? RentPrice { get; set; }
 
         public int Quantity { get; set; }
 

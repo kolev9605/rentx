@@ -52,9 +52,11 @@ namespace Rentx.Web.Services
                     Title = scd.Product.Title,
                     Image = scd.Product.Image,
                     Price = scd.Product.Price,
+                    RentPrice = scd.Product.RentPrice,
                     Description = scd.Product.Description.TrimDescription(),
                     Id = scd.Id,
-                    Quantity = scd.Quantity
+                    Quantity = scd.Quantity,
+                    ProductId = scd.ProductId
                 })
                 .ToList();
 

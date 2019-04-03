@@ -8,9 +8,10 @@ namespace Rentx.Web.Models.Admin
     public class ProductViewModel : MessageViewModel
     {
         public int Id { get; set; }
+        
+        public decimal? Price { get; set; }
 
-        [Required]
-        public decimal Price { get; set; }
+        public decimal? RentPrice { get; set; }
 
         [Required]
         public string Title { get; set; }
@@ -24,13 +25,10 @@ namespace Rentx.Web.Models.Admin
         [Required]
         public IFormFile Image { get; set; }
 
-        [Required]
-        public int CategoryId { get; set; }
-
         public string ImageFileName { get; set; }
 
         public List<SelectListItem> Categories { get; set; }
 
-        public string Category { get; set; }
+        public int Category { get; set; }
     }
 }

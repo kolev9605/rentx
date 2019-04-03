@@ -16,6 +16,12 @@ namespace Rentx.Web.Data.Entities
         public ApplicationUser User { get; set; }
 
         [Required]
+        public string FirstName { get; set; }
+
+        [Required]
+        public string LastName { get; set; }
+
+        [Required]
         public string Username { get; set; }
 
         public string Email { get; set; }
@@ -31,10 +37,6 @@ namespace Rentx.Web.Data.Entities
         [Required]
         public string PostCode { get; set; }
 
-        public bool ShippingAddressIsTheSameAsBillingAddress { get; set; }
-
-        public bool SaveInformation { get; set; }
-
         [Required]
         public string PaymentOption { get; set; }
 
@@ -49,5 +51,7 @@ namespace Rentx.Web.Data.Entities
 
         [Required]
         public string Cvv { get; set; }
+
+        public bool Finished { get; set; }
     }
 }

@@ -19,17 +19,20 @@ namespace Rentx.Web.Controllers
         private readonly ICategoryService categoryService;
         private readonly IImageHandler imageHandler;
         private readonly IPathHelper pathHelper;
+        private readonly IOrderService orderService;
 
         public AdminController(
             IProductService productService,
             IImageHandler imageHandler,
             IPathHelper pathHelper,
-            ICategoryService categoryService)
+            ICategoryService categoryService,
+            IOrderService orderService)
         {
             this.productService = productService;
             this.imageHandler = imageHandler;
             this.pathHelper = pathHelper;
             this.categoryService = categoryService;
+            this.orderService = orderService;
         }
 
         [HttpGet]
@@ -49,6 +52,12 @@ namespace Rentx.Web.Controllers
                     {
                         var categories = await this.categoryService.GetAllAsync();
                         model.CategoryViewModels = categories;
+                        break;
+                    }
+                case AdminMenuType.OrdersMenu:
+                    {
+                        var orders = await this.orderService.GetAllOrderDetailsAsync();
+                        model.OrdersViewModel = orders;
                         break;
                     }
             }
@@ -83,10 +92,10 @@ namespace Rentx.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> AddProduct(ProductViewModel model)
         {
-            if (!ModelState.IsValid)
-            {
-                return View(model);
-            }
+            //if (!ModelState.IsValid)
+            //{
+            //    return View(model);
+            //}
 
             var image = await this.imageHandler.UploadImage(model.Image);
             model.ImageFileName = image;
@@ -113,10 +122,10 @@ namespace Rentx.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> EditProduct(ProductViewModel model)
         {
-            if (!ModelState.IsValid)
-            {
-                return View(model);
-            }
+            //if (!ModelState.IsValid)
+            //{
+            //    return View(model);
+            //}
 
             var image = await this.imageHandler.UploadImage(model.Image);
 

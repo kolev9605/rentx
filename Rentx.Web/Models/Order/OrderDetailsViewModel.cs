@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Rentx.Web.Models.Enums;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -16,7 +17,21 @@ namespace Rentx.Web.Models.Order
                 decimal total = 0;
                 foreach (var product in this.Products)
                 {
-                    total += product.Price * product.Quantity;
+                    total += product.Price.GetValueOrDefault() * product.Quantity;
+                }
+
+                return total;
+            }
+        }
+
+        public decimal TotalRent
+        {
+            get
+            {
+                decimal total = 0;
+                foreach (var product in this.Products)
+                {
+                    total += product.RentPrice.GetValueOrDefault() * product.Quantity;
                 }
 
                 return total;
@@ -45,12 +60,8 @@ namespace Rentx.Web.Models.Order
         [Required]
         public string PostCode { get; set; }
 
-        public bool ShippingAddressIsTheSameAsBillingAddress { get; set; }
-
-        public bool SaveInformation { get; set; }
-
         [Required]
-        public int PaymentOption { get; set; }
+        public PaymentType PaymentOption { get; set; }
 
         [Required]
         public string NameOnCard { get; set; }

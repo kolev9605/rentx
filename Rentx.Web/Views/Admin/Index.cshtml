@@ -8,6 +8,9 @@
             <li class="nav-item">
                 <a asp-controller="Admin" asp-action="Index" asp-route-type="CategoriesMenu" class="nav-link">Categories</a>
             </li>
+            <li class="nav-item">
+                <a asp-controller="Admin" asp-action="Index" asp-route-type="OrdersMenu" class="nav-link">Orders</a>
+            </li>
         </ul>
 
     </div>
@@ -20,6 +23,7 @@
                     <tr>
                         <th scope="col">Id</th>
                         <th scope="col">Цена</th>
+                        <th scope="col">Цена под наем</th>
                         <th scope="col">Име</th>
                         <th scope="col">Налично количество</th>
                         <th scope="col">Редактирай</th>
@@ -31,7 +35,8 @@
                     {
                         <tr>
                             <td>@product.Id</td>
-                            <td>@product.Price</td>
+                            <td>@(product.Price.HasValue ? product.Price.Value.ToString() : "-")</td>
+                            <td>@(product.RentPrice.HasValue ? product.RentPrice.Value.ToString() : "-")</td>
                             <td>@product.Title</td>
                             <td>@product.AvailableQuantity</td>
                             <td><a asp-controller="Admin" asp-action="EditProduct" asp-route-productId="@product.Id">Редактирай</a></td>
@@ -81,7 +86,51 @@
         </div>
     }
 
-
+    @if (Model.OrdersViewModel != null)
+    {
+        @if (Model.OrdersViewModel.Any())
+        {
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">Име</th>
+                        <th scope="col">Презиме</th>
+                        <th scope="col">Потребителско име</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">Адрес 1</th>
+                        <th scope="col">Адрес 2</th>
+                        <th scope="col">Държава</th>
+                        <th scope="col">Пощенски код</th>
+                        <th scope="col">Начин за плащане</th>
+                        <th scope="col">Имена на картата</th>
+                        <th scope="col">Номер на кредитна карта</th>
+                        <th scope="col">Дата на изтичане</th>
+                        <th scope="col">CVV</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var order in Model.OrdersViewModel)
+                    {
+                    <tr>
+                        <td scope="col">@order.FirstName</td>
+                        <td scope="col">@order.LastName</td>
+                        <td scope="col">@order.Username</td>
+                        <td scope="col">@order.Email</td>
+                        <td scope="col">@order.Address1</td>
+                        <td scope="col">@order.Address2</td>
+                        <td scope="col">@order.Country</td>
+                        <td scope="col">@order.PostCode</td>
+                        <td scope="col">@order.PaymentOption</td>
+                        <td scope="col">@order.NameOnCard</td>
+                        <td scope="col">@order.CreditCardNumber</td>
+                        <td scope="col">@order.ExpirationDate</td>
+                        <td scope="col">@order.Cvv</td>
+                    </tr>
+                    }
+                </tbody>
+            </table>
+        }
+    }
 
 
 </div>

@@ -22,6 +22,30 @@ namespace Rentx.Web.Services
             this.dbContext = dbContext;
         }
 
+        public async Task<IEnumerable<OrderDetailsViewModel>> GetAllOrderDetailsAsync()
+        {
+            var products = await this.dbContext.Orders
+                .Select(o => new OrderDetailsViewModel
+                {
+                    Address1 = o.Address1,
+                    Address2 = o.Address2,
+                    Country = o.Country,
+                    CreditCardNumber = o.CreditCardNumber,
+                    Cvv = o.Cvv,
+                    Email = o.Email,
+                    ExpirationDate = o.ExpirationDate,
+                    FirstName = o.FirstName,
+                    LastName = o.LastName,
+                    NameOnCard = o.NameOnCard,
+                    PaymentOption = (PaymentType)Enum.Parse(typeof(PaymentType), o.PaymentOption),
+                    PostCode = o.PostCode,
+                    Username = o.Username
+                })
+                .ToListAsync();
+
+            return products;
+        }
+
         public async Task<OrderDetailsViewModel> GetOrderDetailsAsync(int shoppingCartId)
         {
             OrderDetailsViewModel model = new OrderDetailsViewModel();
@@ -32,6 +56,7 @@ namespace Rentx.Web.Services
                 {
                     Title = p.Product.Title,
                     Price = p.Product.Price,
+                    RentPrice = p.Product.RentPrice,
                     Quantity = p.Quantity,
                     Description = p.Product.Description.TrimDescription(),
                     ProductId = p.ProductId
@@ -68,11 +93,11 @@ namespace Rentx.Web.Services
             order.Email = model.Email;
             order.ExpirationDate = model.ExpirationDate;
             order.NameOnCard = model.NameOnCard;
-            order.PaymentOption = ((PaymentType)model.PaymentOption).ToString();
+            order.PaymentOption = (model.PaymentOption).ToString();
             order.PostCode = model.PostCode;
-            order.SaveInformation = model.SaveInformation;
-            order.ShippingAddressIsTheSameAsBillingAddress = model.ShippingAddressIsTheSameAsBillingAddress;
             order.Username = model.Username;
+            order.FirstName = model.FirstName;
+            order.LastName = model.LastName;
 
             await this.dbContext.Orders.AddAsync(order);
 
