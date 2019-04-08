@@ -9,5 +9,7 @@ namespace Rentx.Web.Services.Interfaces
         Task<IEnumerable<CatalogProductViewModel>> GetCatalogProductsByCategoryIdAsync(int categoryId);
 
         Task<IEnumerable<CatalogProductViewModel>> GetAllCatalogProductsAsync();
+
+        Task<IEnumerable<CatalogProductViewModel>> GetAllCatalogProductsBySearchTerm(string searchTerm);
     }
 }

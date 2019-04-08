@@ -1,9 +1,5 @@
 ﻿@model CatalogViewModel
 
-<div class="text-center">
-    <h1 class="display-4">Каталог</h1>
-</div>
-
 <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
     <ol class="carousel-indicators">
         <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
@@ -36,12 +32,27 @@
         @foreach (var category in Model.Categories)
         {
             <li class="nav-item">
-                <a asp-controller="Home" asp-action="Index" asp-route-categoryId="@category.Id" class="nav-link">@category.Name</a>
+                <a id="searchButton" asp-controller="Home" asp-action="Index" asp-route-categoryId="@category.Id" class="nav-link">@category.Name</a>
             </li>
         }
 
     </ul>
 </div>
+
+<form asp-controller="Home" asp-action="Index" method="get">
+    <div class="row text-center">
+        <div class="input-group offset-md-4 col-md-4 mb-5">
+            <input asp-for="SearchTerm" class="form-control py-2" type="search" id="example-search-input">
+            <span class="input-group-append">
+                <button class="btn btn-outline-secondary" type="submit">
+                    <i class="fa fa-search"></i>
+                </button>
+            </span>
+        </div>
+    </div>
+</form>
+
+
 <div class="row">
     @foreach (var productItem in Model.CatalogProducts)
     {
@@ -95,5 +106,5 @@
 <script>
     $('.carousel').carousel({
         interval: 2000
-    })
+    });
 </script>

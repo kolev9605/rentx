@@ -16,19 +16,27 @@ namespace Rentx.Web.Controllers
             this.categoryService = categoryService;
         }
 
-        public async Task<IActionResult> Index(int? categoryId)
+        [HttpGet]
+        public async Task<IActionResult> Index(int? categoryId, string searchTerm)
         {
             var model = new CatalogViewModel();
 
-            if (categoryId.HasValue && categoryId.Value != 0)
+            if (searchTerm != null)
             {
-                model.CatalogProducts = await this.catalogService.GetCatalogProductsByCategoryIdAsync(categoryId.Value);
+                model.CatalogProducts = await this.catalogService.GetAllCatalogProductsBySearchTerm(searchTerm);
             }
             else
             {
-                model.CatalogProducts = await this.catalogService.GetAllCatalogProductsAsync();
+                if (categoryId.HasValue && categoryId.Value != 0)
+                {
+                    model.CatalogProducts = await this.catalogService.GetCatalogProductsByCategoryIdAsync(categoryId.Value);
+                }
+                else
+                {
+                    model.CatalogProducts = await this.catalogService.GetAllCatalogProductsAsync();
+                }
             }
-            
+
             model.Categories = await this.categoryService.GetAllAsync();
 
             return View(model);

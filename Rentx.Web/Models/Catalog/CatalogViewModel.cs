@@ -8,5 +8,7 @@ namespace Rentx.Web.Models.Catalog
         public IEnumerable<CategoryViewModel> Categories { get; set; }
 
         public IEnumerable<CatalogProductViewModel> CatalogProducts { get; set; }
+
+        public string SearchTerm { get; set; }
     }
 }

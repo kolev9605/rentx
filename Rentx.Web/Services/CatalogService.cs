@@ -52,5 +52,23 @@ namespace Rentx.Web.Services
 
             return products;
         }
+
+        public async Task<IEnumerable<CatalogProductViewModel>> GetAllCatalogProductsBySearchTerm(string searchTerm)
+        {
+            var products = await this.dbContext.Products
+                .Where(p => p.Title.ToLower().Contains(searchTerm.Trim().ToLower()))
+                .Select(p => new CatalogProductViewModel
+                {
+                    Title = p.Title.TrimTitle(),
+                    Description = p.Description.TrimDescription(),
+                    Image = p.Image,
+                    Price = p.Price,
+                    RentPrice = p.RentPrice,
+                    Id = p.Id
+                })
+                .ToListAsync();
+
+            return products;
+        }
     }
 }

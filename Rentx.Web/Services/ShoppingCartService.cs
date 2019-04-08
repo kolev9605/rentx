@@ -159,7 +159,7 @@ namespace Rentx.Web.Services
 
                 if (item.Quantity > shoppingCartItem.Product.AvailableQuantity)
                 {
-                    messageViewModel.SetError($"Недостатъчно количесто, в момента наличното е: {item.Quantity}.");
+                    messageViewModel.SetError($"Недостатъчно количесто, в момента наличното е: {shoppingCartItem.Product.AvailableQuantity}.");
                     return messageViewModel;
                 }
 
