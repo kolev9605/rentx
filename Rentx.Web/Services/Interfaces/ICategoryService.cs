@@ -1,4 +1,5 @@
-﻿using Rentx.Web.Models.Admin;
+﻿using Rentx.Web.Models;
+using Rentx.Web.Models.Admin;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -8,7 +9,7 @@ namespace Rentx.Web.Services.Interfaces
     {
         Task AddAsync(CategoryViewModel categoryViewModel);
 
-        Task<bool> DeleteByIdAsync(int categoryId);
+        Task<MessageViewModel> DeleteByIdAsync(int categoryId);
 
         Task<IEnumerable<CategoryViewModel>> GetAllAsync();
 

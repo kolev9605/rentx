@@ -15,7 +15,7 @@ namespace Rentx.Web.Data.Seeders
             context.Database.EnsureCreated();
             var RoleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
             var UserManager = serviceProvider.GetRequiredService<UserManager<ApplicationUser>>();
-            string[] roleNames = { RoleConstants.Administrator, RoleConstants.User };
+            string[] roleNames = { RoleConstants.Administrator/*, RoleConstants.User*/ };
             IdentityResult roleResult;
 
             foreach (var roleName in roleNames)

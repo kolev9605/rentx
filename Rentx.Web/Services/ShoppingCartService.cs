@@ -75,7 +75,7 @@ namespace Rentx.Web.Services
             var productToAdd = this.dbContext.Products.FirstOrDefault(p => p.Id == model.ProductId);
             if (productToAdd == null)
             {
-                messageViewModel.SetError($"Product With id {model.ProductId} could not be found.");
+                messageViewModel.SetError($"Продукт с ID {model.ProductId} не съществува.");
                 return messageViewModel;
             }
 
@@ -86,7 +86,7 @@ namespace Rentx.Web.Services
 
                 if (productToAdd.AvailableQuantity < productDetails.Quantity)
                 {
-                    messageViewModel.SetError($"Not enough available quantity. Currently in stock: {productToAdd.AvailableQuantity}.");
+                    messageViewModel.SetError($"Недостатъчно количесто, в момента наличното е: {productToAdd.AvailableQuantity}.");
                     return messageViewModel;
                 }
 
@@ -97,7 +97,7 @@ namespace Rentx.Web.Services
             {
                 if (productToAdd.AvailableQuantity < model.Quantity)
                 {
-                    messageViewModel.SetError($"Not enough available quantity. Currently in stock: {productToAdd.AvailableQuantity}.");
+                    messageViewModel.SetError($"Недостатъчно количесто, в момента наличното е: {productToAdd.AvailableQuantity}.");
                     return messageViewModel;
                 }
 
@@ -112,7 +112,7 @@ namespace Rentx.Web.Services
                 await dbContext.SaveChangesAsync();
             }
 
-            messageViewModel.SetSuccess("Product successfully added to the shopping cart.");
+            messageViewModel.SetSuccess("Продуктът успешно беше добавен към вашата количка.");
             return messageViewModel;
         }
 
@@ -123,14 +123,14 @@ namespace Rentx.Web.Services
             var shoppingCartDetails = await this.dbContext.ShoppingCartDetails.FirstOrDefaultAsync(scd => scd.Id == shoppingCartDetailsId);
             if (shoppingCartDetails == null)
             {
-                messageViewModel.SetError($"Shopping cart item with id {shoppingCartDetailsId} was not found");
+                messageViewModel.SetError($"Количка с ID {shoppingCartDetailsId} не съществува.");
                 return messageViewModel;
             }
 
             this.dbContext.ShoppingCartDetails.Remove(shoppingCartDetails);
             await this.dbContext.SaveChangesAsync();
 
-            messageViewModel.SetSuccess("Product successfukly removed from the shopping cart.");
+            messageViewModel.SetSuccess("Продуктът успешно е премахнат от количката.");
             return messageViewModel;
         }
 
@@ -153,13 +153,13 @@ namespace Rentx.Web.Services
 
                 if (shoppingCartItem == null)
                 {
-                    messageViewModel.SetError($"Shopping cart details with Id {shoppingCartItem.Id} was not found.");
+                    messageViewModel.SetError($"Предмет с ID {shoppingCartItem.Id} съществува.");
                     return messageViewModel;
                 }
 
                 if (item.Quantity > shoppingCartItem.Product.AvailableQuantity)
                 {
-                    messageViewModel.SetError("Not enough available quantity in stock.");
+                    messageViewModel.SetError($"Недостатъчно количесто, в момента наличното е: {item.Quantity}.");
                     return messageViewModel;
                 }
 
@@ -169,7 +169,7 @@ namespace Rentx.Web.Services
 
             await this.dbContext.SaveChangesAsync();
 
-            messageViewModel.SetSuccess("Shopping cart updated.");
+            messageViewModel.SetSuccess("Количката беше обновена.");
             return messageViewModel;
         }
 

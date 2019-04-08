@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using Rentx.Web.Common.Exceptions;
 using Rentx.Web.Data;
 using Rentx.Web.Data.Entities;
+using Rentx.Web.Models;
 using Rentx.Web.Models.Admin;
 using Rentx.Web.Services.Interfaces;
 
@@ -31,19 +32,19 @@ namespace Rentx.Web.Services
             var result = await this.dbContext.SaveChangesAsync();
         }
 
-        public async Task<bool> DeleteByIdAsync(int categoryId)
+        public async Task<MessageViewModel> DeleteByIdAsync(int categoryId)
         {
+            var message = new MessageViewModel();
             var category = await this.GetCategoryById(categoryId);
             if (category.Products.Any())
             {
-                throw new RentxValidationException($"Category with Id {categoryId} can't be deleted, because there are products associated with it.");
+                message.SetError($"Категория с ID {categoryId} понеже е свързана с продукти.");
             }
 
             this.dbContext.Categories.Remove(category);
             var result = await this.dbContext.SaveChangesAsync();
-
-            var success = result > 0;
-            return success;
+            
+            return message;
         }
 
         public async Task<IEnumerable<CategoryViewModel>> GetAllAsync()

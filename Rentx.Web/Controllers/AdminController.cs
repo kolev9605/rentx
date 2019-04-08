@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Rentx.Web.Common;
 using Rentx.Web.Common.Interfaces;
+using Rentx.Web.Extensions;
 using Rentx.Web.ImageWriter;
 using Rentx.Web.ImageWriter.Interfaces;
 using Rentx.Web.Models.Admin;
@@ -138,7 +139,8 @@ namespace Rentx.Web.Controllers
         [HttpGet]
         public async Task<IActionResult> DeleteCategory(int categoryId)
         {
-            var success = await this.categoryService.DeleteByIdAsync(categoryId);
+            var messageModel = await this.categoryService.DeleteByIdAsync(categoryId);
+            messageModel.SetMessage(this);
 
             return RedirectToAction("Index");
         }
