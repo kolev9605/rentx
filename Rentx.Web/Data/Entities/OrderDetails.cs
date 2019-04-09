@@ -13,5 +13,9 @@
         public Order Order { get; set; }
 
         public int Quantity { get; set; }
+
+        public decimal ProductDetailPrice { get; set; }
+
+        public decimal ProductDetailRentPrice { get; set; }
     }
 }

@@ -83,31 +83,36 @@ namespace Rentx.Web.Services
 
         public async Task<MessageViewModel> SubmitOrderAsync(OrderDetailsViewModel model, string userId)
         {
-            Order order = new Order();
-            order.UserId = userId;
-            order.Address1 = model.Address1;
-            order.Address2 = model.Address2;
-            order.Country = model.Country;
-            order.CreditCardNumber = model.CreditCardNumber;
-            order.Cvv = model.Cvv;
-            order.Email = model.Email;
-            order.ExpirationDate = model.ExpirationDate;
-            order.NameOnCard = model.NameOnCard;
-            order.PaymentOption = (model.PaymentOption).ToString();
-            order.PostCode = model.PostCode;
-            order.Username = model.Username;
-            order.FirstName = model.FirstName;
-            order.LastName = model.LastName;
+            Order order = new Order()
+            {
+                UserId = userId,
+                Address1 = model.Address1,
+                Address2 = model.Address2,
+                Country = model.Country,
+                CreditCardNumber = model.CreditCardNumber,
+                Cvv = model.Cvv,
+                Email = model.Email,
+                ExpirationDate = model.ExpirationDate,
+                NameOnCard = model.NameOnCard,
+                PaymentOption = (model.PaymentOption).ToString(),
+                PostCode = model.PostCode,
+                Username = model.Username,
+                FirstName = model.FirstName,
+                LastName = model.LastName,
+                TotalAmount = model.Total,
+                TotalRentAmount = model.TotalRent
+            };
 
             await this.dbContext.Orders.AddAsync(order);
-
             await this.dbContext.SaveChangesAsync();
 
             order.OrderDetails = model.Products
                 .Select(p => new OrderDetails
                 {
                     ProductId = p.ProductId,
-                    Quantity = p.Quantity
+                    Quantity = p.Quantity,
+                    ProductDetailPrice = p.Quantity * p.Price.GetValueOrDefault(0),
+                    ProductDetailRentPrice = p.Quantity * p.RentPrice.GetValueOrDefault(0)
                 })
                 .ToList();
                 

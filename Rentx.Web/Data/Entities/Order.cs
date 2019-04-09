@@ -52,5 +52,9 @@ namespace Rentx.Web.Data.Entities
         public string Cvv { get; set; }
 
         public bool Finished { get; set; }
+
+        public decimal TotalAmount { get; set; }
+
+        public decimal TotalRentAmount { get; set; }
     }
 }
