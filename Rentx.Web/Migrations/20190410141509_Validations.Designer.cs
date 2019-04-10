@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Rentx.Web.Data;
 
 namespace Rentx.Web.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20190410141509_Validations")]
+    partial class Validations
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -216,9 +218,9 @@ namespace Rentx.Web.Migrations
 
                     b.Property<string>("Email");
 
-                    b.Property<int?>("ExpirationMonth");
+                    b.Property<int>("ExpirationMonth");
 
-                    b.Property<int?>("ExpirationYear");
+                    b.Property<int>("ExpirationYear");
 
                     b.Property<bool>("Finished");
 

@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 using Rentx.Web.Common;
 using Rentx.Web.Data;
 using Rentx.Web.Data.Entities;
@@ -106,14 +107,14 @@ namespace Rentx.Web.Services
 
             model.Products = products;
 
-            List<PaymentOptionViewModel> paymentOptions = new List<PaymentOptionViewModel>();
+            List<SelectListItem> paymentOptions = new List<SelectListItem>();
             var options = Enum.GetValues(typeof(PaymentType));
             foreach (var option in options)
             {
-                paymentOptions.Add(new PaymentOptionViewModel
+                paymentOptions.Add(new SelectListItem
                 {
-                    Name = option.ToString(),
-                    Value = (int)option
+                    Text = PaymentTypeHelper.GetName((PaymentType)option),
+                    Value = ((int)option).ToString()
                 });
             }
 

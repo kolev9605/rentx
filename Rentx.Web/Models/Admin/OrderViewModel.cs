@@ -36,9 +36,9 @@ namespace Rentx.Web.Models.Admin
 
         public string CreditCardNumber { get; set; }
 
-        public int ExpirationMonth { get; set; }
+        public int? ExpirationMonth { get; set; }
 
-        public int ExpirationYear { get; set; }
+        public int? ExpirationYear { get; set; }
 
         public string Cvv { get; set; }
 

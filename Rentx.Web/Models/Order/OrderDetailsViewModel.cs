@@ -1,4 +1,5 @@
-﻿using Rentx.Web.Models.Enums;
+﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using Rentx.Web.Models.Enums;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -37,45 +38,35 @@ namespace Rentx.Web.Models.Order
                 return total;
             }
         }
-
-        [Required]
+        
         public string FirstName { get; set; }
-
-        [Required]
+        
         public string LastName { get; set; }
-
-        [Required]
+        
         public string Username { get; set; }
 
         public string Email { get; set; }
-
-        [Required]
+        
         public string Address1 { get; set; }
 
         public string Address2 { get; set; }
-
-        [Required]
+        
         public string Country { get; set; }
-
-        [Required]
+        
         public string PostCode { get; set; }
-
-        [Required]
+        
         public PaymentType PaymentOption { get; set; }
-
-        [Required]
+        
         public string NameOnCard { get; set; }
-
-        [Required]
+        
         public string CreditCardNumber { get; set; }
         
         public int ExpirationMonth { get; set; }
 
         public int ExpirationYear { get; set; }
-
-        [Required]
+        
         public string Cvv { get; set; }
 
-        public IEnumerable<PaymentOptionViewModel> PaymentOptions { get; set; }
+        public IEnumerable<SelectListItem> PaymentOptions { get; set; }
     }
 }
