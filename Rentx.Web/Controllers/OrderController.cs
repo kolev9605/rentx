@@ -35,5 +35,7 @@ namespace Rentx.Web.Controllers
             messageViewModel.SetMessage(this);
             return RedirectToAction("Index", "Home");
         }
+
+
     }
 }

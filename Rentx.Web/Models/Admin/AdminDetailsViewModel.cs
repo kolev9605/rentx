@@ -1,8 +1,4 @@
-﻿using Rentx.Web.Models.Order;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace Rentx.Web.Models.Admin
 {
@@ -12,6 +8,6 @@ namespace Rentx.Web.Models.Admin
 
         public IEnumerable<CategoryViewModel> CategoryViewModels { get; set; }
 
-        public IEnumerable<OrderDetailsViewModel> OrdersViewModel { get; set; }
+        public IEnumerable<OrderViewModel> OrdersViewModel { get; set; }
     }
 }

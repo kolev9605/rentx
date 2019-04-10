@@ -3,6 +3,7 @@ using Rentx.Web.Common;
 using Rentx.Web.Data;
 using Rentx.Web.Data.Entities;
 using Rentx.Web.Models;
+using Rentx.Web.Models.Admin;
 using Rentx.Web.Models.Enums;
 using Rentx.Web.Models.Order;
 using Rentx.Web.Services.Interfaces;
@@ -22,28 +23,68 @@ namespace Rentx.Web.Services
             this.dbContext = dbContext;
         }
 
-        public async Task<IEnumerable<OrderDetailsViewModel>> GetAllOrderDetailsAsync()
+        public async Task<MessageViewModel> ConfirmOrderAsync(int orderId)
         {
-            var products = await this.dbContext.Orders
-                .Select(o => new OrderDetailsViewModel
+            var model = new MessageViewModel();
+            var order = await this.dbContext.Orders.FirstOrDefaultAsync(o => o.Id == orderId);
+            if (order == null)
+            {
+                model.SetError("Такава поръчка не съществува.");
+                return model;
+            }
+
+            if (order.Finished)
+            {
+                model.SetError("Поръчката вече е завършена.");
+                return model;
+            }
+
+            order.Finished = true;
+            this.dbContext.Update(order);
+            await this.dbContext.SaveChangesAsync();
+
+            model.SetSuccess("Поръчката беше завършена успешно.");
+            return model;
+        }
+
+        public async Task<IEnumerable<OrderViewModel>> GetAllOrderDetailsAsync()
+        {
+            var orders = await this.dbContext.Orders
+                .Select(o => new OrderViewModel
                 {
+                    Id = o.Id,
                     Address1 = o.Address1,
                     Address2 = o.Address2,
                     Country = o.Country,
                     CreditCardNumber = o.CreditCardNumber,
                     Cvv = o.Cvv,
                     Email = o.Email,
-                    ExpirationDate = o.ExpirationDate,
+                    ExpirationYear = o.ExpirationYear,
+                    ExpirationMonth = o.ExpirationMonth,
                     FirstName = o.FirstName,
                     LastName = o.LastName,
                     NameOnCard = o.NameOnCard,
                     PaymentOption = (PaymentType)Enum.Parse(typeof(PaymentType), o.PaymentOption),
                     PostCode = o.PostCode,
-                    Username = o.Username
+                    Username = o.Username,
+                    Total = o.TotalAmount,
+                    TotalRent = o.TotalRentAmount,
+                    Finished = o.Finished,
+                    Products = o.OrderDetails.Select(od => new OrderProductItemViewModel
+                    {
+                        Description = od.Product.Description,
+                        ProductId = od.ProductId,
+                        Quantity = od.Quantity,
+                        Title = od.Product.Title,
+                        Price = od.ProductDetailPrice,
+                        RentPrice = od.ProductDetailRentPrice
+                    })
+                    .ToList()
+
                 })
                 .ToListAsync();
 
-            return products;
+            return orders;
         }
 
         public async Task<OrderDetailsViewModel> GetOrderDetailsAsync(int shoppingCartId)
@@ -92,7 +133,8 @@ namespace Rentx.Web.Services
                 CreditCardNumber = model.CreditCardNumber,
                 Cvv = model.Cvv,
                 Email = model.Email,
-                ExpirationDate = model.ExpirationDate,
+                ExpirationMonth = model.ExpirationMonth,
+                ExpirationYear = model.ExpirationYear,
                 NameOnCard = model.NameOnCard,
                 PaymentOption = (model.PaymentOption).ToString(),
                 PostCode = model.PostCode,
@@ -115,7 +157,7 @@ namespace Rentx.Web.Services
                     ProductDetailRentPrice = p.Quantity * p.RentPrice.GetValueOrDefault(0)
                 })
                 .ToList();
-                
+
             var result = await this.dbContext.SaveChangesAsync();
 
             var messageModel = new MessageViewModel();

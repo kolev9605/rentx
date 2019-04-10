@@ -85,52 +85,90 @@
             <a asp-controller="Admin" asp-action="AddCategory" class="btn btn-primary">Добави категория</a>
         </div>
     }
+</div>
 
-    @if (Model.OrdersViewModel != null)
+@if (Model.OrdersViewModel != null)
+{
+    @if (Model.OrdersViewModel.Any())
     {
-        @if (Model.OrdersViewModel.Any())
+        @foreach (var order in Model.OrdersViewModel)
         {
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th scope="col">Име</th>
-                        <th scope="col">Презиме</th>
-                        <th scope="col">Потребителско име</th>
-                        <th scope="col">Email</th>
-                        <th scope="col">Адрес 1</th>
-                        <th scope="col">Адрес 2</th>
-                        <th scope="col">Държава</th>
-                        <th scope="col">Пощенски код</th>
-                        <th scope="col">Начин за плащане</th>
-                        <th scope="col">Имена на картата</th>
-                        <th scope="col">Номер на кредитна карта</th>
-                        <th scope="col">Дата на изтичане</th>
-                        <th scope="col">CVV</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var order in Model.OrdersViewModel)
-                    {
-                    <tr>
-                        <td scope="col">@order.FirstName</td>
-                        <td scope="col">@order.LastName</td>
-                        <td scope="col">@order.Username</td>
-                        <td scope="col">@order.Email</td>
-                        <td scope="col">@order.Address1</td>
-                        <td scope="col">@order.Address2</td>
-                        <td scope="col">@order.Country</td>
-                        <td scope="col">@order.PostCode</td>
-                        <td scope="col">@order.PaymentOption</td>
-                        <td scope="col">@order.NameOnCard</td>
-                        <td scope="col">@order.CreditCardNumber</td>
-                        <td scope="col">@order.ExpirationDate</td>
-                        <td scope="col">@order.Cvv</td>
-                    </tr>
-                    }
-                </tbody>
-            </table>
+
+            <div class="accordion" id="accordionExample">
+                <div class="card">
+                    <div class="card-header" id="headingOne">
+                        <h5 class="mb-0">
+                            <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                Поръчка на @order.FirstName @order.LastName
+                            </button>
+                        </h5>
+                    </div>
+
+
+                    <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="card-body">
+                                    <ul class="list-group">
+                                        <li class="list-group-item">Име - @order.FirstName</li>
+                                        <li class="list-group-item">Фамилия - @order.LastName</li>
+                                        <li class="list-group-item">Потребителско име - @order.Username</li>
+                                        <li class="list-group-item">Email - @order.Email</li>
+                                        <li class="list-group-item">Адрес 1 - @order.Address1</li>
+                                        <li class="list-group-item">Адрес 2 - @order.Address2</li>
+                                        <li class="list-group-item">Държава - @order.Country</li>
+                                        <li class="list-group-item">Пощенски код - @order.PostCode</li>
+                                        <li class="list-group-item">Начин за плащане - @order.PaymentOption</li>
+                                        <li class="list-group-item">Имена на картата - @order.NameOnCard</li>
+                                        <li class="list-group-item">Номер на кредитна карта - @order.CreditCardNumber</li>
+                                        <li class="list-group-item">Месец на изтичане - @order.ExpirationMonth</li>
+                                        <li class="list-group-item">Година на изтичане - @order.ExpirationYear</li>
+                                        <li class="list-group-item">CVV - @order.Cvv</li>
+                                        <li class="list-group-item">Обща сума - @order.Total</li>
+                                        <li class="list-group-item">Обща сума на ден - @order.TotalRent</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>Име</th>
+                                            <th>Количество</th>
+                                            <th>Цена</th>
+                                            <th>Цена на ден</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+
+                                        @foreach (var product in order.Products)
+                                        {
+                                            <tr>
+                                                <td>@product.Title</td>
+                                                <td>@product.Quantity</td>
+                                                <td>@product.Price</td>
+                                                <td>@product.RentPrice</td>
+                                            </tr>
+                                        }
+
+                                    </tbody>
+                                </table>
+                                @if (order.Finished)
+                                {
+                                    <div>Поръчката е потвърдена.</div>
+                                }
+                                else
+                                {
+                                    <div>
+                                        <a asp-controller="Admin" asp-action="ConfirmOrder" asp-route-orderId="@order.Id" class="btn btn-success">Потвърди поръчката</a>
+                                    </div>
+                                }
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         }
     }
-
-
-</div>
+}

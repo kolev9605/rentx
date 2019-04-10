@@ -68,9 +68,10 @@ namespace Rentx.Web.Models.Order
 
         [Required]
         public string CreditCardNumber { get; set; }
+        
+        public int ExpirationMonth { get; set; }
 
-        [Required]
-        public DateTime ExpirationDate { get; set; }
+        public int ExpirationYear { get; set; }
 
         [Required]
         public string Cvv { get; set; }

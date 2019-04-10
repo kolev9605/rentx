@@ -181,5 +181,14 @@ namespace Rentx.Web.Controllers
             var success = await this.categoryService.UpdateAsync(model);
             return RedirectToAction("Index");
         }
+
+        [HttpGet]
+        public async Task<IActionResult> ConfirmOrder(int orderId)
+        {
+            var model = await this.orderService.ConfirmOrderAsync(orderId);
+            model.SetMessage(this);
+
+            return RedirectToAction("Index");
+        }
     }
 }
