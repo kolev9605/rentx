@@ -49,15 +49,5 @@ namespace Rentx.Tests
             var addedProduct = context.Products.FirstOrDefault(p => p.Title == model.Title);
             Assert.NotNull(addedProduct);
         }
-
-        [Fact]
-        public async void Test()
-        {
-            var context = DbContextHelper.GetContextWithData();
-            ProductService service = new ProductService(context);
-
-            var allProducts = await service.GetAllAsync();
-
-        }
     }
 }

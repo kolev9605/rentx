@@ -13,6 +13,9 @@ using System.Threading.Tasks;
 
 namespace Rentx.Web.Controllers
 {
+    /// <summary>
+    /// Controller responsible for Admin operations
+    /// </summary>
     [Authorize(Roles = RoleConstants.Administrator)]
     public class AdminController : Controller
     {

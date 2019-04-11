@@ -5,6 +5,9 @@ using System.Threading.Tasks;
 
 namespace Rentx.Web.Controllers
 {
+    /// <summary>
+    /// Controller responsible for Catalog operations
+    /// </summary>
     public class HomeController : Controller
     {
         private readonly ICatalogService catalogService;
@@ -16,6 +19,12 @@ namespace Rentx.Web.Controllers
             this.categoryService = categoryService;
         }
 
+        /// <summary>
+        /// The main catalog action. Returns products to the homepage by given category or keyword to search.
+        /// </summary>
+        /// <param name="categoryId">Category id</param>
+        /// <param name="searchTerm">Keyword to search for products in their titles</param>
+        /// <returns>Products based on the search or the category passed</returns>
         [HttpGet]
         public async Task<IActionResult> Index(int? categoryId, string searchTerm)
         {

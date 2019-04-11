@@ -9,6 +9,9 @@ using Rentx.Web.Services.Interfaces;
 
 namespace Rentx.Web.Services
 {
+    /// <summary>
+    /// Service responsible for database operations on catalog items
+    /// </summary>
     public class CatalogService : ICatalogService
     {
         private readonly ApplicationDbContext dbContext;
@@ -18,6 +21,11 @@ namespace Rentx.Web.Services
             this.dbContext = dbContext;
         }
 
+        /// <summary>
+        /// Returns catalog products by Category Id
+        /// </summary>
+        /// <param name="categoryId">Category Id</param>
+        /// <returns>Collection of products found</returns>
         public async Task<IEnumerable<CatalogProductViewModel>> GetCatalogProductsByCategoryIdAsync(int categoryId)
         {
             var products = await this.dbContext.Products
@@ -36,6 +44,10 @@ namespace Rentx.Web.Services
             return products;
         }
 
+        /// <summary>
+        /// Returns all catalog products 
+        /// </summary>
+        /// <returns>Collection of products</returns>
         public async Task<IEnumerable<CatalogProductViewModel>> GetAllCatalogProductsAsync()
         {
             var products = await this.dbContext.Products
@@ -53,6 +65,11 @@ namespace Rentx.Web.Services
             return products;
         }
 
+        /// <summary>
+        /// Returns catalog products by keyword (the search checks for match only in the title of the product)
+        /// </summary>
+        /// <param name="searchTerm">Keyword used in the search</param>
+        /// <returns>Collection of products found</returns>
         public async Task<IEnumerable<CatalogProductViewModel>> GetAllCatalogProductsBySearchTerm(string searchTerm)
         {
             var products = await this.dbContext.Products

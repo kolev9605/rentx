@@ -15,6 +15,9 @@ using System.Threading.Tasks;
 
 namespace Rentx.Web.Services
 {
+    /// <summary>
+    /// Service responsible for database operations on orders
+    /// </summary>
     public class OrderService : IOrderService
     {
         private readonly ApplicationDbContext dbContext;
@@ -24,6 +27,11 @@ namespace Rentx.Web.Services
             this.dbContext = dbContext;
         }
 
+        /// <summary>
+        /// Confirms order by marking it as Finished
+        /// </summary>
+        /// <param name="orderId">The Id of the order to confirm</param>
+        /// <returns>Message model with error message in case of error or success message.</returns>
         public async Task<MessageViewModel> ConfirmOrderAsync(int orderId)
         {
             var model = new MessageViewModel();
@@ -48,6 +56,10 @@ namespace Rentx.Web.Services
             return model;
         }
 
+        /// <summary>
+        /// Gets all orders and their order details
+        /// </summary>
+        /// <returns>All orders into OrderViewModel</returns>
         public async Task<IEnumerable<OrderViewModel>> GetAllOrderDetailsAsync()
         {
             var orders = await this.dbContext.Orders
@@ -88,6 +100,11 @@ namespace Rentx.Web.Services
             return orders;
         }
 
+        /// <summary>
+        /// Gets all order details by shopping cart id
+        /// </summary>
+        /// <param name="shoppingCartId">The Id of the shopping cart</param>
+        /// <returns>Collection of OrderDetailsViewModel</returns>
         public async Task<OrderDetailsViewModel> GetOrderDetailsAsync(int shoppingCartId)
         {
             OrderDetailsViewModel model = new OrderDetailsViewModel();
@@ -123,6 +140,12 @@ namespace Rentx.Web.Services
             return model;
         }
 
+        /// <summary>
+        /// Submits order into the system
+        /// </summary>
+        /// <param name="model">Model which contain all of the order information</param>
+        /// <param name="userId">User Id</param>
+        /// <returns>Message model with error message in case of error or success message.</returns>
         public async Task<MessageViewModel> SubmitOrderAsync(OrderDetailsViewModel model, string userId)
         {
             Order order = new Order()

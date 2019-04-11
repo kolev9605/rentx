@@ -12,6 +12,9 @@ using Rentx.Web.Services.Interfaces;
 
 namespace Rentx.Web.Services
 {
+    /// <summary>
+    /// Service responsible for database operations on categories
+    /// </summary>
     public class CategoryService : ICategoryService
     {
         private readonly ApplicationDbContext dbContext;
@@ -21,6 +24,11 @@ namespace Rentx.Web.Services
             this.dbContext = dbContext;
         }
 
+        /// <summary>
+        /// Adds category in the database
+        /// </summary>
+        /// <param name="categoryViewModel">Model used to create the category</param>
+        /// <returns></returns>
         public async Task AddAsync(CategoryViewModel categoryViewModel)
         {
             var category = new Category
@@ -32,6 +40,11 @@ namespace Rentx.Web.Services
             var result = await this.dbContext.SaveChangesAsync();
         }
 
+        /// <summary>
+        /// Delete category from the database by Id
+        /// </summary>
+        /// <param name="categoryId">Category Id</param>
+        /// <returns>Message model with error message in case of error or success message.</returns>
         public async Task<MessageViewModel> DeleteByIdAsync(int categoryId)
         {
             var message = new MessageViewModel();
@@ -47,6 +60,10 @@ namespace Rentx.Web.Services
             return message;
         }
 
+        /// <summary>
+        /// Returns all categories
+        /// </summary>
+        /// <returns>Collection of categories</returns>
         public async Task<IEnumerable<CategoryViewModel>> GetAllAsync()
         {
             var categories = await this.dbContext.Categories
@@ -60,6 +77,11 @@ namespace Rentx.Web.Services
             return categories;
         }
 
+        /// <summary>
+        /// Returns category by category Id
+        /// </summary>
+        /// <param name="categoryId">Category id</param>
+        /// <returns>Category</returns>
         public async Task<CategoryViewModel> GetByIdAsync(int categoryId)
         {
             var category = await this.GetCategoryById(categoryId);
@@ -73,6 +95,11 @@ namespace Rentx.Web.Services
             return categoryModel;
         }
 
+        /// <summary>
+        /// Updates the category by the given model
+        /// </summary>
+        /// <param name="categoryViewModel">Model used to update the category</param>
+        /// <returns>Boolean value that indicates the success of the update</returns>
         public async Task<bool> UpdateAsync(CategoryViewModel categoryViewModel)
         {
             var category = await this.GetCategoryById(categoryViewModel.Id);

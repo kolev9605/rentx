@@ -12,6 +12,9 @@ using System.Threading.Tasks;
 
 namespace Rentx.Web.Services
 {
+    /// <summary>
+    /// Service responsible for database operations on products
+    /// </summary>
     public class ProductService : IProductService
     {
         private readonly ApplicationDbContext dbContext;
@@ -21,6 +24,11 @@ namespace Rentx.Web.Services
             this.dbContext = dbContext;
         }
 
+        /// <summary>
+        /// Adds product in the database
+        /// </summary>
+        /// <param name="model">Model used to create the product</param>
+        /// <returns></returns>
         public async Task AddAsync(ProductViewModel model)
         {
             var product = new Product
@@ -38,6 +46,11 @@ namespace Rentx.Web.Services
             var result = await this.dbContext.SaveChangesAsync();
         }
 
+        /// <summary>
+        /// Deletes product from the database by Id
+        /// </summary>
+        /// <param name="productId">Product Id</param>
+        /// <returns>Boolean value that indicates the success of the delete</returns>
         public async Task<bool> DeleteByIdAsync(int productId)
         {
             var product = await this.GetProductById(productId);
@@ -48,6 +61,10 @@ namespace Rentx.Web.Services
             return success;
         }
 
+        /// <summary>
+        /// Returns all products from the database
+        /// </summary>
+        /// <returns>Collection of products</returns>
         public async Task<IEnumerable<ProductViewModel>> GetAllAsync()
         {
             var products = await this.dbContext.Products
@@ -65,6 +82,11 @@ namespace Rentx.Web.Services
             return products;
         }
 
+        /// <summary>
+        /// Returns product by given product Id
+        /// </summary>
+        /// <param name="productId"></param>
+        /// <returns>ProductViewModel of the found product</returns>
         public async Task<ProductViewModel> GetByIdAsync(int productId)
         {
             var product = await this.GetProductById(productId);
@@ -84,6 +106,11 @@ namespace Rentx.Web.Services
             return productModel;
         }
 
+        /// <summary>
+        /// Updates product by given model
+        /// </summary>
+        /// <param name="model">Model used to update the product</param>
+        /// <returns>Boolean value that indicates the success of the update</returns>
         public async Task<bool> UpdateAsync(ProductViewModel model)
         {
             var product = await this.GetProductById(model.Id);

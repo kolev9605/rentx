@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 
 namespace Rentx.Web.Controllers
 {
+    /// <summary>
+    /// Controller responsible for order operations
+    /// </summary>
     [Authorize]
     public class OrderController : Controller
     {
@@ -19,6 +22,11 @@ namespace Rentx.Web.Controllers
             this.shoppingCartService = shoppingCartService;
         }
 
+        /// <summary>
+        /// Returns view of the form used to submit order
+        /// </summary>
+        /// <param name="shoppingCartId">Shopping cart id</param>
+        /// <returns></returns>
         [HttpGet]
         public async Task<IActionResult> Index(int shoppingCartId)
         {
@@ -26,6 +34,11 @@ namespace Rentx.Web.Controllers
             return View(model);
         }
 
+        /// <summary>
+        /// Posts the form and creates the order
+        /// </summary>
+        /// <param name="model">Model used to create the order</param>
+        /// <returns></returns>
         [HttpPost]
         public async Task<IActionResult> Index(OrderDetailsViewModel model)
         {

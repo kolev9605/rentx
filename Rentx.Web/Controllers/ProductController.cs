@@ -4,6 +4,9 @@ using System.Threading.Tasks;
 
 namespace Rentx.Web.Controllers
 {
+    /// <summary>
+    /// Controller responsible for product operations
+    /// </summary>
     public class ProductController : Controller
     {
         private readonly IProductService productService;
@@ -13,6 +16,11 @@ namespace Rentx.Web.Controllers
             this.productService = productService;
         }
 
+        /// <summary>
+        /// Returns product details page
+        /// </summary>
+        /// <param name="productId"></param>
+        /// <returns></returns>
         public async Task<IActionResult> Details(int productId)
         {
             var product = await this.productService.GetByIdAsync(productId);

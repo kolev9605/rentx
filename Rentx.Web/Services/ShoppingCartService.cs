@@ -13,6 +13,9 @@ using Rentx.Web.Models;
 
 namespace Rentx.Web.Services
 {
+    /// <summary>
+    /// Service responsible for database operations on shopping carts
+    /// </summary>
     public class ShoppingCartService : IShoppingCartService
     {
         private readonly ApplicationDbContext dbContext;
@@ -22,6 +25,11 @@ namespace Rentx.Web.Services
             this.dbContext = dbContext;
         }
 
+        /// <summary>
+        /// Gets shopping cart by user id
+        /// </summary>
+        /// <param name="userId">User Id</param>
+        /// <returns>Model of the shopping cart</returns>
         public async Task<ShoppingCartViewModel> GetShoppingCartAsync(string userId)
         {
             ShoppingCart userCart = await this.dbContext.ShoppingCarts
@@ -67,6 +75,11 @@ namespace Rentx.Web.Services
             return model;
         }
 
+        /// <summary>
+        /// Adds shopping cart into the database
+        /// </summary>
+        /// <param name="model">Model which is used to create Shopping Cart entity</param>
+        /// <returns>Message model with error message in case of error or success message.</returns>
         public async Task<MessageViewModel> AddAsync(AddToCartViewModel model)
         {
             var messageViewModel = new MessageViewModel();
@@ -116,6 +129,11 @@ namespace Rentx.Web.Services
             return messageViewModel;
         }
 
+        /// <summary>
+        /// Removes shopping cart details from the shopping cart
+        /// </summary>
+        /// <param name="shoppingCartDetailsId">The id of the shopping cart</param>
+        /// <returns>Message model with error message in case of error or success message.</returns>
         public async Task<MessageViewModel> RemoveAsync(int shoppingCartDetailsId)
         {
             var messageViewModel = new MessageViewModel();
@@ -134,6 +152,11 @@ namespace Rentx.Web.Services
             return messageViewModel;
         }
 
+        /// <summary>
+        /// Updates the shopping cart from the given model
+        /// </summary>
+        /// <param name="shoppingCartViewModel">Model which is used to update the shopping cart</param>
+        /// <returns>Message model with error message in case of error or success message.</returns>
         public async Task<MessageViewModel> UpdateAsync(ShoppingCartViewModel shoppingCartViewModel)
         {
             var messageViewModel = new MessageViewModel();
@@ -173,6 +196,11 @@ namespace Rentx.Web.Services
             return messageViewModel;
         }
 
+        /// <summary>
+        /// Clears the shopping cart by user id
+        /// </summary>
+        /// <param name="userId">The Id of the user</param>
+        /// <returns>Message model with error message in case of error or success message.</returns>
         public async Task<MessageViewModel> ClearShoppingCart(string userId)
         {
             ShoppingCart userCart = this.dbContext.ShoppingCarts
