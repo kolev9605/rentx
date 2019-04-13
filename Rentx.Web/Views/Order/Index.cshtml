@@ -13,11 +13,12 @@
                     <div>
                         <h6 class="my-0">@product.Title</h6>
                         <small class="text-muted">@product.Description</small>
+                        <br />
+                        <small class="text-muted">@product.Quantity @(product.Quantity == 1 ? "брой" : "броя")</small>
                     </div>
                     @if (product.RentPrice.HasValue)
                     {
                         <span class="text-muted">@product.RentPrice лв/ден</span>
-
                     }
                     else
                     {
