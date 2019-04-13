@@ -3,13 +3,13 @@
     <div class="mb-5">
         <ul class="nav nav-tabs justify-content-center">
             <li class="nav-item">
-                <a asp-controller="Admin" asp-action="Index" asp-route-type="ProductMenu" class="nav-link">Products</a>
+                <a asp-controller="Admin" asp-action="Index" asp-route-type="ProductMenu" class="nav-link">Продукти</a>
             </li>
             <li class="nav-item">
-                <a asp-controller="Admin" asp-action="Index" asp-route-type="CategoriesMenu" class="nav-link">Categories</a>
+                <a asp-controller="Admin" asp-action="Index" asp-route-type="CategoriesMenu" class="nav-link">Категории</a>
             </li>
             <li class="nav-item">
-                <a asp-controller="Admin" asp-action="Index" asp-route-type="OrdersMenu" class="nav-link">Orders</a>
+                <a asp-controller="Admin" asp-action="Index" asp-route-type="OrdersMenu" class="nav-link">Поръчки</a>
             </li>
         </ul>
 
@@ -98,14 +98,14 @@
                 <div class="card">
                     <div class="card-header" id="headingOne-@order.Id">
                         <h5 class="mb-0">
-                            <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne-@order.Id" aria-expanded="true" aria-controls="collapseOne-@order.Id">
-                                Поръчка на @order.FirstName @order.LastName
+                            <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne-@order.Id" aria-expanded="false" aria-controls="collapseOne-@order.Id">
+                                Поръчка на @order.FirstName @order.LastName @(order.Finished ? "(потвърдена)" : "")
                             </button>
                         </h5>
                     </div>
 
 
-                    <div id="collapseOne-@order.Id" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample-@order.Id">
+                    <div id="collapseOne-@order.Id" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample-@order.Id">
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="card-body">
