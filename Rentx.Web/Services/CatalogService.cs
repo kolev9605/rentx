@@ -73,7 +73,7 @@ namespace Rentx.Web.Services
         public async Task<IEnumerable<CatalogProductViewModel>> GetAllCatalogProductsBySearchTerm(string searchTerm)
         {
             var products = await this.dbContext.Products
-                .Where(p => p.Title.ToLower().Contains(searchTerm.Trim().ToLower()))
+                .Where(p => p.Title.IndexOf(searchTerm.Trim(), System.StringComparison.OrdinalIgnoreCase) >= 0)
                 .Select(p => new CatalogProductViewModel
                 {
                     Title = p.Title.TrimTitle(),
