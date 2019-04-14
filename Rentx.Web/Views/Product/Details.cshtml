@@ -1,0 +1,78 @@
+﻿@model ProductViewModel
+
+<div class="container">
+    <div class="card">
+        <div class="row">
+            <aside class="col-sm-5 border-right">
+                <article class="gallery-wrap">
+                    <div class="img-big-wrap">
+                        <div><img class="img-fluid" src="~/images/@Model.ImageFileName"></div>
+                    </div> <!-- slider-product.// -->
+                    @*<div class="img-small-wrap">
+                        <div class="item-gallery"> <img src="https://s9.postimg.org/tupxkvfj3/image.jpg"> </div>
+                        <div class="item-gallery"> <img src="https://s9.postimg.org/tupxkvfj3/image.jpg"> </div>
+                        <div class="item-gallery"> <img src="https://s9.postimg.org/tupxkvfj3/image.jpg"> </div>
+                        <div class="item-gallery"> <img src="https://s9.postimg.org/tupxkvfj3/image.jpg"> </div>
+                    </div>*@ <!-- slider-nav.// -->
+                </article> <!-- gallery-wrap .end// -->
+            </aside>
+            <aside class="col-sm-7">
+                <article class="card-body p-5">
+                    <h3 class="title mb-3">@Model.Title</h3>
+                    <p class="price-detail-wrap">
+                        <span class="price h3 text-warning">
+                            @if (Model.RentPrice.HasValue)
+                            {
+                                <span class="num">@Model.RentPrice</span>
+                            }
+                            else
+                            {
+                                <span class="num">@Model.Price</span>
+                            }
+                            <span class="currency">лв.</span>
+                        </span>
+                        @if (Model.RentPrice.HasValue)
+                        {
+                            <span>/ ден</span>
+                        }
+                    </p> <!-- price-detail-wrap .// -->
+                    <dl class="item-property">
+                        <dt>Описание</dt>
+                        <dd>
+                            <p>@Model.Description</p>
+                        </dd>
+                    </dl>
+                    @*<dl class="param param-feature">
+                        <dt>Сериен номер</dt>
+                        <dd>12345611</dd>
+                    </dl>  <!-- item-property-hor .// -->
+                    <dl class="param param-feature">
+                        <dt>Color</dt>
+                        <dd>Black and white</dd>
+                    </dl>  <!-- item-property-hor .// -->
+                    <dl class="param param-feature">
+                        <dt>Доставка</dt>
+                        <dd>САЩ и Европа</dd>
+                    </dl>  <!-- item-property-hor .// --> *@
+                    <hr>
+                    <div class="row">
+                        <div class="col-sm-5">
+                            <dl class="param param-inline">
+                                <dt>Налично количество: </dt>
+                                <dd>
+                                    @Model.AvailableQuantity
+                                </dd>
+                            </dl>  <!-- item-property .// -->
+                        </div> <!-- col.// -->
+                        <div class="col-sm-7">  <!-- item-property .// -->
+                        </div> <!-- col.// -->
+                    </div> <!-- row.// -->
+                    <hr>
+                    @*<a href="#" class="btn btn-lg btn-primary text-uppercase"> Купи сега </a>*@
+                    <a asp-controller="ShoppingCart" asp-action="Add" asp-route-productId="@Model.Id" class="btn btn-lg btn-outline-primary text-uppercase"> Добави към количката </a>
+                </article> <!-- card-body.// -->
+            </aside> <!-- col.// -->
+        </div> <!-- row.// -->
+    </div> <!-- card.// -->
+
+</div>

@@ -1,0 +1,174 @@
+﻿@model AdminDetailsViewModel
+<div class="text-center">
+    <div class="mb-5">
+        <ul class="nav nav-tabs justify-content-center">
+            <li class="nav-item">
+                <a asp-controller="Admin" asp-action="Index" asp-route-type="ProductMenu" class="nav-link">Продукти</a>
+            </li>
+            <li class="nav-item">
+                <a asp-controller="Admin" asp-action="Index" asp-route-type="CategoriesMenu" class="nav-link">Категории</a>
+            </li>
+            <li class="nav-item">
+                <a asp-controller="Admin" asp-action="Index" asp-route-type="OrdersMenu" class="nav-link">Поръчки</a>
+            </li>
+        </ul>
+
+    </div>
+    @if (Model.ProductViewModels != null)
+    {
+        @if (Model.ProductViewModels.Any())
+        {
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">Id</th>
+                        <th scope="col">Цена</th>
+                        <th scope="col">Цена под наем</th>
+                        <th scope="col">Име</th>
+                        <th scope="col">Налично количество</th>
+                        <th scope="col">Редактирай</th>
+                        <th scope="col">Изтрий</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var product in Model.ProductViewModels)
+                    {
+                        <tr>
+                            <td>@product.Id</td>
+                            <td>@(product.Price.HasValue ? product.Price.Value.ToString() : "-")</td>
+                            <td>@(product.RentPrice.HasValue ? product.RentPrice.Value.ToString() : "-")</td>
+                            <td>@product.Title</td>
+                            <td>@product.AvailableQuantity</td>
+                            <td><a asp-controller="Admin" asp-action="EditProduct" asp-route-productId="@product.Id">Редактирай</a></td>
+                            <td><a asp-controller="Admin" asp-action="DeleteProduct" asp-route-productId="@product.Id">Изтрий</a></td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+
+        <div>
+            <a asp-controller="Admin" asp-action="AddProduct" class="btn btn-primary">Добави продукт</a>
+        </div>
+    }
+
+
+
+
+    @if (Model.CategoryViewModels != null)
+    {
+        @if (Model.CategoryViewModels.Any())
+        {
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">Id</th>
+                        <th scope="col">Име</th>
+                        <th scope="col">Редактирай</th>
+                        <th scope="col">Изтрий</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var category in Model.CategoryViewModels)
+                    {
+                        <tr>
+                            <td>@category.Id</td>
+                            <td>@category.Name</td>
+                            <td><a asp-controller="Admin" asp-action="EditCategory" asp-route-categoryId="@category.Id">Редактирай</a></td>
+                            <td><a asp-controller="Admin" asp-action="DeleteCategory" asp-route-categoryId="@category.Id">Изтрий</a></td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+        <div>
+            <a asp-controller="Admin" asp-action="AddCategory" class="btn btn-primary">Добави категория</a>
+        </div>
+    }
+</div>
+
+@if (Model.OrdersViewModel != null)
+{
+    @if (Model.OrdersViewModel.Any())
+    {
+        @foreach (var order in Model.OrdersViewModel)
+        {
+
+            <div class="accordion" id="accordionExample-@order.Id">
+                <div class="card">
+                    <div class="card-header" id="headingOne-@order.Id">
+                        <h5 class="mb-0">
+                            <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne-@order.Id" aria-expanded="false" aria-controls="collapseOne-@order.Id">
+                                Поръчка на @order.FirstName @order.LastName @(order.Finished ? "(потвърдена)" : "")
+                            </button>
+                        </h5>
+                    </div>
+
+
+                    <div id="collapseOne-@order.Id" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample-@order.Id">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="card-body">
+                                    <ul class="list-group">
+                                        <li class="list-group-item">Име - @order.FirstName</li>
+                                        <li class="list-group-item">Фамилия - @order.LastName</li>
+                                        <li class="list-group-item">Потребителско име - @order.Username</li>
+                                        <li class="list-group-item">Email - @order.Email</li>
+                                        <li class="list-group-item">Адрес 1 - @order.Address1</li>
+                                        <li class="list-group-item">Адрес 2 - @order.Address2</li>
+                                        <li class="list-group-item">Държава - @order.Country</li>
+                                        <li class="list-group-item">Пощенски код - @order.PostCode</li>
+                                        <li class="list-group-item">Начин за плащане - @order.PaymentOption</li>
+                                        <li class="list-group-item">Имена на картата - @order.NameOnCard</li>
+                                        <li class="list-group-item">Номер на кредитна карта - @order.CreditCardNumber</li>
+                                        <li class="list-group-item">Месец на изтичане - @order.ExpirationMonth</li>
+                                        <li class="list-group-item">Година на изтичане - @order.ExpirationYear</li>
+                                        <li class="list-group-item">CVV - @order.Cvv</li>
+                                        <li class="list-group-item">Обща сума - @order.Total</li>
+                                        <li class="list-group-item">Обща сума на ден - @order.TotalRent</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>Име</th>
+                                            <th>Количество</th>
+                                            <th>Цена</th>
+                                            <th>Цена на ден</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+
+                                        @foreach (var product in order.Products)
+                                        {
+                                            <tr>
+                                                <td>@product.Title</td>
+                                                <td>@product.Quantity</td>
+                                                <td>@product.Price</td>
+                                                <td>@product.RentPrice</td>
+                                            </tr>
+                                        }
+
+                                    </tbody>
+                                </table>
+                                @if (order.Finished)
+                                {
+                                    <div>Поръчката е потвърдена.</div>
+                                }
+                                else
+                                {
+                                    <div>
+                                        <a asp-controller="Admin" asp-action="ConfirmOrder" asp-route-orderId="@order.Id" class="btn btn-success">Потвърди поръчката</a>
+                                    </div>
+                                }
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    }
+}

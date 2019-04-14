@@ -1,18 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.UI;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.UI;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Rentx.Web.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Rentx.Web.Common;
+using Rentx.Web.Common.Interfaces;
+using Rentx.Web.Data;
+using Rentx.Web.Data.Entities;
+using Rentx.Web.ImageWriter.Interfaces;
+using Rentx.Web.Services;
+using Rentx.Web.Services.Interfaces;
 
 namespace Rentx.Web
 {
@@ -39,11 +40,11 @@ namespace Rentx.Web
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
 
-            //services.AddDefaultIdentity<IdentityUser>()
+            //services.AddDefaultIdentity<ApplicationUser>()
             //    .AddDefaultUI(UIFramework.Bootstrap4)
             //    .AddEntityFrameworkStores<ApplicationDbContext>();
 
-            services.AddIdentity<IdentityUser, IdentityRole>(options =>
+            services.AddIdentity<ApplicationUser, IdentityRole>(options =>
             {
                 options.Password.RequiredLength = 5;
                 options.Password.RequireLowercase = false;
@@ -51,9 +52,19 @@ namespace Rentx.Web
                 options.Password.RequireNonAlphanumeric = false;
                 options.Password.RequireDigit = false;
             })
+                .AddRoles<IdentityRole>()
                 .AddDefaultUI(UIFramework.Bootstrap4)
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();
+
+            services.AddTransient<IPathHelper, PathHelper>();
+            services.AddTransient<IImageWriter, ImageWriter.ImageWriter>();
+            services.AddTransient<IImageHandler, ImageWriter.ImageHandler>();
+            services.AddTransient<IProductService, ProductService>();
+            services.AddTransient<ICatalogService, CatalogService>();
+            services.AddTransient<IShoppingCartService, ShoppingCartService>();
+            services.AddTransient<ICategoryService, CategoryService>();
+            services.AddTransient<IOrderService, OrderService>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
@@ -68,7 +79,7 @@ namespace Rentx.Web
             }
             else
             {
-                app.UseExceptionHandler("/Home/Error");
+                //app.UseExceptionHandler("/Home/Error");
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }

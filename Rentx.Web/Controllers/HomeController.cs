@@ -1,29 +1,54 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
+﻿using Microsoft.AspNetCore.Mvc;
+using Rentx.Web.Models.Catalog;
+using Rentx.Web.Services.Interfaces;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Rentx.Web.Models;
 
 namespace Rentx.Web.Controllers
 {
+    /// <summary>
+    /// Controller responsible for Catalog operations
+    /// </summary>
     public class HomeController : Controller
     {
-        public IActionResult Index()
+        private readonly ICatalogService catalogService;
+        private readonly ICategoryService categoryService;
+
+        public HomeController(ICatalogService catalogService, ICategoryService categoryService)
         {
-            return View();
+            this.catalogService = catalogService;
+            this.categoryService = categoryService;
         }
 
-        public IActionResult Privacy()
+        /// <summary>
+        /// The main catalog action. Returns products to the homepage by given category or keyword to search.
+        /// </summary>
+        /// <param name="categoryId">Category id</param>
+        /// <param name="searchTerm">Keyword to search for products in their titles</param>
+        /// <returns>Products based on the search or the category passed</returns>
+        [HttpGet]
+        public async Task<IActionResult> Index(int? categoryId, string searchTerm)
         {
-            return View();
-        }
+            var model = new CatalogViewModel();
 
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            if (searchTerm != null)
+            {
+                model.CatalogProducts = await this.catalogService.GetAllCatalogProductsBySearchTerm(searchTerm);
+            }
+            else
+            {
+                if (categoryId.HasValue && categoryId.Value != 0)
+                {
+                    model.CatalogProducts = await this.catalogService.GetCatalogProductsByCategoryIdAsync(categoryId.Value);
+                }
+                else
+                {
+                    model.CatalogProducts = await this.catalogService.GetAllCatalogProductsAsync();
+                }
+            }
+
+            model.Categories = await this.categoryService.GetAllAsync();
+
+            return View(model);
         }
     }
 }
