@@ -88,15 +88,21 @@
                     $("#priceInput").hide();
                     $("#priceInput input").val('');
                     $("#rentPriceInput").show();
-                    //$("#categoryDropDown select").prop("disabled", true);
                     $("#categoryDropDown select").attr("style", "pointer-events: none;");
-                    $("#categoryDropDown select").val(4);
+
+                    let options = $("#categoryDropDown select option");
+                    for (let o of options) {
+                        console.log(o);
+                        if (o.text === 'Под наем') {
+                            $("#categoryDropDown select").val(o.value);
+
+                        }
+                    }    
                 }
                 else {
                     $("#rentPriceInput").hide();
                     $("#rentPriceInput input").val('');
                     $("#priceInput").show();
-                    //$("#categoryDropDown select").prop("disabled", false);
                     $("#categoryDropDown select").attr("style", "pointer-events: auto;");
                     $("#categoryDropDown select").val(1);
                 };
