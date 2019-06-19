@@ -26,19 +26,19 @@ namespace Rentx.Web.Controllers
         /// <param name="searchTerm">Keyword to search for products in their titles</param>
         /// <returns>Products based on the search or the category passed</returns>
         [HttpGet]
-        public async Task<IActionResult> Index(int? categoryId, string searchTerm)
+        public async Task<IActionResult> Index([FromQuery]CatalogSearchRequest catalogSearchRequest)
         {
             var model = new CatalogViewModel();
 
-            if (searchTerm != null)
+            if (catalogSearchRequest.SearchTerm != null)
             {
-                model.CatalogProducts = await this.catalogService.GetAllCatalogProductsBySearchTerm(searchTerm);
+                model.CatalogProducts = await this.catalogService.GetAllCatalogProductsBySearchTerm(catalogSearchRequest.SearchTerm);
             }
             else
             {
-                if (categoryId.HasValue && categoryId.Value != 0)
+                if (catalogSearchRequest.CategoryId.HasValue && catalogSearchRequest.CategoryId.Value != 0)
                 {
-                    model.CatalogProducts = await this.catalogService.GetCatalogProductsByCategoryIdAsync(categoryId.Value);
+                    model.CatalogProducts = await this.catalogService.GetCatalogProductsByCategoryIdAsync(catalogSearchRequest.CategoryId.Value);
                 }
                 else
                 {

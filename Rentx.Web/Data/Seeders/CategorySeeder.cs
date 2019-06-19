@@ -12,19 +12,23 @@ namespace Rentx.Web.Data.Seeders
             context.Database.EnsureCreated();
             string[] categoryNames = { CategoryConstants.CameraName, CategoryConstants.LensName, CategoryConstants.TripodName, CategoryConstants.RentName };
 
-            foreach (var categoryName in categoryNames)
+            if (await context.Categories.AnyAsync() == false)
             {
-                var categoryExist = await context.Categories.FirstOrDefaultAsync(c => c.Name == categoryName) != null;
-                if (!categoryExist)
+                foreach (var categoryName in categoryNames)
                 {
-                    context.Categories.Add(new Category
+                    var categoryExist = await context.Categories.FirstOrDefaultAsync(c => c.Name == categoryName) != null;
+                    if (!categoryExist)
                     {
-                        Name = categoryName
-                    });
+                        context.Categories.Add(new Category
+                        {
+                            Name = categoryName
+                        });
+                    }
                 }
+
+                context.SaveChanges();
             }
 
-            context.SaveChanges();
         }
     }
 }

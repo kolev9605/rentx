@@ -27,12 +27,16 @@
                 </li>
             }
             <li class="list-group-item d-flex justify-content-between">
-                <span>Общо (BGN)</span>
+                <span>Общо за плащане сега (BGN)</span>
                 <strong>@Model.Total лв.</strong>
             </li>
             <li class="list-group-item d-flex justify-content-between">
                 <span>Общо на ден (за стоките под наем) (BGN)</span>
                 <strong>@Model.TotalRent лв/ден</strong>
+            </li>
+            <li class="list-group-item d-flex justify-content-between">
+                <span>Общо (BGN)</span>
+                <strong>@(Model.TotalRent + Model.Total) лв.</strong>
             </li>
         </ul>
 

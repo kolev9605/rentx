@@ -8,15 +8,15 @@
     </ol>
     <div class="carousel-inner">
         <div class="carousel-item active">
-            <img class="d-block w-100" 
+            <img class="d-block w-100"
                  src="https://www.photopavilion.bg/n_images_c_834x468/teasers/original/1/1_c675ec03bdac27f9a022a054966e1b82.jpg" alt="First slide">
         </div>
         <div class="carousel-item">
-            <img class="d-block w-100" 
+            <img class="d-block w-100"
                  src="https://www.photopavilion.bg/n_images_c_834x468/teasers/original/1/1_f51a1c22b0a65c2fd01dbf11b5dc6b01.png" alt="Second slide">
         </div>
         <div class="carousel-item">
-            <img class="d-block w-100" 
+            <img class="d-block w-100"
                  src="https://www.photopavilion.bg/n_images_c_834x468/teasers/original/1/1_8bd392654eabee71c3a626f37578c73c.png" alt="Third slide">
         </div>
     </div>
@@ -38,9 +38,13 @@
                 <a id="searchButton" asp-controller="Home" asp-action="Index" asp-route-categoryId="@category.Id" class="nav-link">@category.Name</a>
             </li>
         }
-
     </ul>
 </div>
+
+
+
+
+<a id="sortButton" asp-controller="Home" asp-action="Index" asp-route-OrderBy="Ascending" class="nav-link">Order by asc</a>
 
 <form asp-controller="Home" asp-action="Index" method="get">
     <div class="row text-center">
