@@ -41,23 +41,6 @@
     </ul>
 </div>
 
-@if (Model.CurrentOrder == Rentx.Web.Models.Enums.OrderType.Ascending)
-{
-    <a asp-all-route-data="Context.Request.Query.ToDictionary(q => q.Key, q => q.Value.ToString())"
-       id="sortButton"
-       asp-controller="Home"
-       asp-action="Index"
-       asp-route-OrderBy="Descending">Подреди по цена по низходящ ред</a>
-}
-else
-{
-<a asp-all-route-data="Context.Request.Query.ToDictionary(q => q.Key, q => q.Value.ToString())"
-   id="sortButton"
-   asp-controller="Home"
-   asp-action="Index"
-   asp-route-OrderBy="Ascending">Подреди по цена по възходящ ред</a>
-}
-
 <form asp-controller="Home" asp-action="Index" method="get">
     <div class="row text-center">
         <div class="input-group offset-md-4 col-md-4 mb-5">
@@ -67,6 +50,32 @@ else
                     <i class="fa fa-search"></i>
                 </button>
             </span>
+        </div>
+        <div class="dropdown show">
+            <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Сортирай
+                @if (Model.CurrentOrder == Rentx.Web.Models.Enums.OrderType.Ascending)
+                {
+                    <i class="fa fa-angle-up"></i>
+                }
+                else
+                {
+                    <i class="fa fa-angle-down"></i>
+                }
+                </a>
+
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                <a asp-all-route-data="Context.Request.Query.ToDictionary(q => q.Key, q => q.Value.ToString())"
+                   asp-controller="Home"
+                   asp-action="Index"
+                   asp-route-OrderBy="Ascending"
+                   class="dropdown-item">Цена <i class="fa fa-angle-up"></i></a>
+                <a asp-all-route-data="Context.Request.Query.ToDictionary(q => q.Key, q => q.Value.ToString())"
+                   asp-controller="Home"
+                   asp-action="Index"
+                   asp-route-OrderBy="Descending"
+                   class="dropdown-item">Цена <i class="fa fa-angle-down"></i></a>
+            </div>
         </div>
     </div>
 </form>
