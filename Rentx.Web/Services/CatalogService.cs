@@ -43,11 +43,11 @@ namespace Rentx.Web.Services
 
             if (orderType == OrderType.Ascending)
             {
-                productsQuery = productsQuery.OrderBy(x => x.Title);
+                productsQuery = productsQuery.OrderBy(x => x.Price);
             }
             else if (orderType == OrderType.Descending)
             {
-                productsQuery = productsQuery.OrderByDescending(x => x.Title);
+                productsQuery = productsQuery.OrderByDescending(x => x.Price);
             }
 
             var products = await productsQuery.ToListAsync();
@@ -74,11 +74,11 @@ namespace Rentx.Web.Services
 
             if (orderType == OrderType.Ascending)
             {
-                productsQuery = productsQuery.OrderBy(x => x.Title);
+                productsQuery = productsQuery.OrderBy(x => x.Price);
             }
             else if (orderType == OrderType.Descending)
             {
-                productsQuery = productsQuery.OrderByDescending(x => x.Title);
+                productsQuery = productsQuery.OrderByDescending(x => x.Price);
             }
 
             var products = await productsQuery.ToListAsync();
@@ -107,11 +107,11 @@ namespace Rentx.Web.Services
 
             if (orderType == OrderType.Ascending)
             {
-                productsQuery = productsQuery.OrderBy(x => x.Title);
+                productsQuery = productsQuery.OrderBy(x => x.Price);
             }
             else if (orderType == OrderType.Descending)
             {
-                productsQuery = productsQuery.OrderByDescending(x => x.Title);
+                productsQuery = productsQuery.OrderByDescending(x => x.Price);
             }
 
             var products = await productsQuery.ToListAsync();

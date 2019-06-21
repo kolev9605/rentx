@@ -47,15 +47,15 @@
        id="sortButton"
        asp-controller="Home"
        asp-action="Index"
-       asp-route-OrderBy="Descending">Подреди по име по низходящ ред</a>
+       asp-route-OrderBy="Descending">Подреди по цена по низходящ ред</a>
 }
 else
 {
-    <a asp-all-route-data="Context.Request.Query.ToDictionary(q => q.Key, q => q.Value.ToString())"
-       id="sortButton"
-       asp-controller="Home"
-       asp-action="Index"
-       asp-route-OrderBy="Ascending">Подреди по име по възходящ ред</a>
+<a asp-all-route-data="Context.Request.Query.ToDictionary(q => q.Key, q => q.Value.ToString())"
+   id="sortButton"
+   asp-controller="Home"
+   asp-action="Index"
+   asp-route-OrderBy="Ascending">Подреди по цена по възходящ ред</a>
 }
 
 <form asp-controller="Home" asp-action="Index" method="get">
