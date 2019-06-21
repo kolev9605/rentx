@@ -1,4 +1,6 @@
-﻿namespace Rentx.Web.Models.Catalog
+﻿using Rentx.Web.Models.Enums;
+
+namespace Rentx.Web.Models.Catalog
 {
     public class CatalogSearchRequest
     {
@@ -6,6 +8,6 @@
 
         public string SearchTerm { get; set; }
 
-        public string OrderBy { get; set; }
+        public OrderType OrderBy { get; set; }
     }
 }

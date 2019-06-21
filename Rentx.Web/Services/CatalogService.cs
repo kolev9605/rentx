@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using Rentx.Web.Common;
 using Rentx.Web.Data;
 using Rentx.Web.Models.Catalog;
+using Rentx.Web.Models.Enums;
 using Rentx.Web.Services.Interfaces;
 
 namespace Rentx.Web.Services
@@ -26,9 +27,9 @@ namespace Rentx.Web.Services
         /// </summary>
         /// <param name="categoryId">Category Id</param>
         /// <returns>Collection of products found</returns>
-        public async Task<IEnumerable<CatalogProductViewModel>> GetCatalogProductsByCategoryIdAsync(int categoryId)
+        public async Task<IEnumerable<CatalogProductViewModel>> GetCatalogProductsByCategoryIdAsync(int categoryId, OrderType orderType)
         {
-            var products = await this.dbContext.Products
+            var productsQuery = this.dbContext.Products
                 .Where(p => p.CategoryId == categoryId)
                 .Select(p => new CatalogProductViewModel
                 {
@@ -38,8 +39,18 @@ namespace Rentx.Web.Services
                     Price = p.Price,
                     RentPrice = p.RentPrice,
                     Id = p.Id
-                })
-                .ToListAsync();
+                });
+
+            if (orderType == OrderType.Ascending)
+            {
+                productsQuery = productsQuery.OrderBy(x => x.Title);
+            }
+            else if (orderType == OrderType.Descending)
+            {
+                productsQuery = productsQuery.OrderByDescending(x => x.Title);
+            }
+
+            var products = await productsQuery.ToListAsync();
 
             return products;
         }
@@ -48,9 +59,9 @@ namespace Rentx.Web.Services
         /// Returns all catalog products 
         /// </summary>
         /// <returns>Collection of products</returns>
-        public async Task<IEnumerable<CatalogProductViewModel>> GetAllCatalogProductsAsync()
+        public async Task<IEnumerable<CatalogProductViewModel>> GetAllCatalogProductsAsync(OrderType orderType)
         {
-            var products = await this.dbContext.Products
+            var productsQuery = this.dbContext.Products
                 .Select(p => new CatalogProductViewModel
                 {
                     Title = p.Title.TrimTitle(),
@@ -59,8 +70,18 @@ namespace Rentx.Web.Services
                     Price = p.Price,
                     RentPrice = p.RentPrice,
                     Id = p.Id
-                })
-                .ToListAsync();
+                });
+
+            if (orderType == OrderType.Ascending)
+            {
+                productsQuery = productsQuery.OrderBy(x => x.Title);
+            }
+            else if (orderType == OrderType.Descending)
+            {
+                productsQuery = productsQuery.OrderByDescending(x => x.Title);
+            }
+
+            var products = await productsQuery.ToListAsync();
 
             return products;
         }
@@ -70,9 +91,9 @@ namespace Rentx.Web.Services
         /// </summary>
         /// <param name="searchTerm">Keyword used in the search</param>
         /// <returns>Collection of products found</returns>
-        public async Task<IEnumerable<CatalogProductViewModel>> GetAllCatalogProductsBySearchTerm(string searchTerm)
+        public async Task<IEnumerable<CatalogProductViewModel>> GetAllCatalogProductsBySearchTerm(string searchTerm, OrderType orderType)
         {
-            var products = await this.dbContext.Products
+            var productsQuery = this.dbContext.Products
                 .Where(p => p.Title.IndexOf(searchTerm.Trim(), System.StringComparison.OrdinalIgnoreCase) >= 0)
                 .Select(p => new CatalogProductViewModel
                 {
@@ -82,8 +103,18 @@ namespace Rentx.Web.Services
                     Price = p.Price,
                     RentPrice = p.RentPrice,
                     Id = p.Id
-                })
-                .ToListAsync();
+                });
+
+            if (orderType == OrderType.Ascending)
+            {
+                productsQuery = productsQuery.OrderBy(x => x.Title);
+            }
+            else if (orderType == OrderType.Descending)
+            {
+                productsQuery = productsQuery.OrderByDescending(x => x.Title);
+            }
+
+            var products = await productsQuery.ToListAsync();
 
             return products;
         }

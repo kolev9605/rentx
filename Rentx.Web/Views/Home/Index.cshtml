@@ -35,16 +35,28 @@
         @foreach (var category in Model.Categories)
         {
             <li class="nav-item">
-                <a id="searchButton" asp-controller="Home" asp-action="Index" asp-route-categoryId="@category.Id" class="nav-link">@category.Name</a>
+                <a asp-all-route-data="Context.Request.Query.ToDictionary(q => q.Key, q => q.Value.ToString())" id="searchButton" asp-controller="Home" asp-action="Index" asp-route-categoryId="@category.Id" class="nav-link">@category.Name</a>
             </li>
         }
     </ul>
 </div>
 
-
-
-
-<a id="sortButton" asp-controller="Home" asp-action="Index" asp-route-OrderBy="Ascending" class="nav-link">Order by asc</a>
+@if (Model.CurrentOrder == Rentx.Web.Models.Enums.OrderType.Ascending)
+{
+    <a asp-all-route-data="Context.Request.Query.ToDictionary(q => q.Key, q => q.Value.ToString())"
+       id="sortButton"
+       asp-controller="Home"
+       asp-action="Index"
+       asp-route-OrderBy="Descending">Подреди по име по низходящ ред</a>
+}
+else
+{
+    <a asp-all-route-data="Context.Request.Query.ToDictionary(q => q.Key, q => q.Value.ToString())"
+       id="sortButton"
+       asp-controller="Home"
+       asp-action="Index"
+       asp-route-OrderBy="Ascending">Подреди по име по възходящ ред</a>
+}
 
 <form asp-controller="Home" asp-action="Index" method="get">
     <div class="row text-center">

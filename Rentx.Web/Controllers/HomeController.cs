@@ -32,21 +32,22 @@ namespace Rentx.Web.Controllers
 
             if (catalogSearchRequest.SearchTerm != null)
             {
-                model.CatalogProducts = await this.catalogService.GetAllCatalogProductsBySearchTerm(catalogSearchRequest.SearchTerm);
+                model.CatalogProducts = await this.catalogService.GetAllCatalogProductsBySearchTerm(catalogSearchRequest.SearchTerm, catalogSearchRequest.OrderBy);
             }
             else
             {
                 if (catalogSearchRequest.CategoryId.HasValue && catalogSearchRequest.CategoryId.Value != 0)
                 {
-                    model.CatalogProducts = await this.catalogService.GetCatalogProductsByCategoryIdAsync(catalogSearchRequest.CategoryId.Value);
+                    model.CatalogProducts = await this.catalogService.GetCatalogProductsByCategoryIdAsync(catalogSearchRequest.CategoryId.Value, catalogSearchRequest.OrderBy);
                 }
                 else
                 {
-                    model.CatalogProducts = await this.catalogService.GetAllCatalogProductsAsync();
+                    model.CatalogProducts = await this.catalogService.GetAllCatalogProductsAsync(catalogSearchRequest.OrderBy);
                 }
             }
 
             model.Categories = await this.categoryService.GetAllAsync();
+            model.CurrentOrder = catalogSearchRequest.OrderBy;
 
             return View(model);
         }
