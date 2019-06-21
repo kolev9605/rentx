@@ -43,11 +43,11 @@ namespace Rentx.Web.Services
 
             if (orderType == OrderType.Ascending)
             {
-                productsQuery = productsQuery.OrderBy(x => x.Price + x.RentPrice);
+                productsQuery = productsQuery.OrderBy(x => x.Price.GetValueOrDefault() + x.RentPrice.GetValueOrDefault());
             }
             else if (orderType == OrderType.Descending)
             {
-                productsQuery = productsQuery.OrderByDescending(x => x.Price + x.RentPrice);
+                productsQuery = productsQuery.OrderByDescending(x => x.Price.GetValueOrDefault() + x.RentPrice.GetValueOrDefault());
             }
 
             var products = await productsQuery.ToListAsync();
@@ -74,11 +74,11 @@ namespace Rentx.Web.Services
 
             if (orderType == OrderType.Ascending)
             {
-                productsQuery = productsQuery.OrderBy(x => x.Price + x.RentPrice);
+                productsQuery = productsQuery.OrderBy(x => x.Price.GetValueOrDefault() + x.RentPrice.GetValueOrDefault());
             }
             else if (orderType == OrderType.Descending)
             {
-                productsQuery = productsQuery.OrderByDescending(x => x.Price + x.RentPrice);
+                productsQuery = productsQuery.OrderByDescending(x => x.Price.GetValueOrDefault() + x.RentPrice.GetValueOrDefault());
             }
 
             var products = await productsQuery.ToListAsync();
@@ -107,11 +107,11 @@ namespace Rentx.Web.Services
 
             if (orderType == OrderType.Ascending)
             {
-                productsQuery = productsQuery.OrderBy(x => x.Price + x.RentPrice);
+                productsQuery = productsQuery.OrderBy(x => x.Price.GetValueOrDefault() + x.RentPrice.GetValueOrDefault());
             }
             else if (orderType == OrderType.Descending)
             {
-                productsQuery = productsQuery.OrderByDescending(x => x.Price + x.RentPrice);
+                productsQuery = productsQuery.OrderByDescending(x => x.Price.GetValueOrDefault() + x.RentPrice.GetValueOrDefault());
             }
 
             var products = await productsQuery.ToListAsync();
