@@ -187,6 +187,23 @@ namespace Rentx.Web.Services
             var messageModel = new MessageViewModel();
             messageModel.SetSuccess("Поръчката ви е получена успешно");
 
+            foreach (var product in model.Products)
+            {
+                var productEntity = await this.dbContext.Products.FirstOrDefaultAsync(p => p.Id == product.ProductId);
+                if (productEntity != null)
+                {
+                    if (product.Quantity > productEntity.AvailableQuantity)
+                    {
+                        continue;
+                    }
+
+                    productEntity.AvailableQuantity -= product.Quantity;
+                    this.dbContext.Products.Update(productEntity);
+                }
+
+                await this.dbContext.SaveChangesAsync();
+            }
+
             return messageModel;
         }
     }
